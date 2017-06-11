@@ -125,76 +125,30 @@ paths:
       responses:
         405:
           description: "Invalid input"
-  /cards/countByTag:
+  /cards/count:
     get:
       tags:
       - "cards"
-      summary: "Number of Cards available by Tag"
-      description: "Returns list of tags and a count of available cards for each.\
-        \  Excludes cards which the user has answered correctly in the past."
-      operationId: "countCardsByTag"
+      summary: "Number of Cards available"
+      description: "Excludes cards which the user has answered correctly in the past.\
+        \ If input is blank, returns list of tags and a count of available cards for\
+        \ each.  If tag list supplied, shows how many cards are available that have\
+        \ ALL or ANY of the supplied tags"
+      operationId: "countCards"
       produces:
       - "application/json"
-      parameters: []
+      parameters:
+      - in: "body"
+        name: "countCards"
+        description: "Input is optional - left blank will return all tags and a count"
+        required: false
+        schema:
+          $ref: "#/definitions/cardCount"
       responses:
         200:
           description: "successful operation"
           schema:
             $ref: "#/definitions/tagCount"
-        400:
-          description: "Invalid tag value"
-  /cards/countByTagAll:
-    get:
-      tags:
-      - "cards"
-      summary: "Number of Cards available for a Tag combination"
-      description: "Shows how many cards are available that have ALL the supplied\
-        \ tags"
-      operationId: "countCardsByTagAll"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "tags"
-        in: "query"
-        description: "Muliple tags can be comma separated in an array."
-        required: true
-        type: "array"
-        items:
-          type: "integer"
-          format: "int64"
-        collectionFormat: "multi"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/tagCountObj"
-        400:
-          description: "Invalid tag value"
-  /cards/countByTagAny:
-    get:
-      tags:
-      - "cards"
-      summary: "Number of Cards available for a Tag combination"
-      description: "Shows how many cards are available that have ANY of the supplied\
-        \ tags"
-      operationId: "countCardsByTagAny"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "tags"
-        in: "query"
-        description: "Muliple tags can be comma separated in an array."
-        required: true
-        type: "array"
-        items:
-          type: "integer"
-          format: "int64"
-        collectionFormat: "multi"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/tagCountObj"
         400:
           description: "Invalid tag value"
   /cards/findByTagAll:
@@ -438,6 +392,19 @@ definitions:
         format: "int64"
       answerText:
         type: "string"
+  cardCount:
+    type: "object"
+    properties:
+      tags:
+        type: "array"
+        example: "12,244,3"
+        items:
+          type: "integer"
+          format: "int64"
+      filterType:
+        type: "string"
+        example: "ANY"
+        description: "Choose to filter for ANY or ALL Tags"
   cardResponse:
     type: "object"
     properties:
@@ -576,6 +543,7 @@ definitions:
       tagCount:
         type: "integer"
         format: "int64"
+        example: 324
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
