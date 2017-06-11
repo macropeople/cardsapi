@@ -1,0 +1,88 @@
+<div class="main-content">
+  <h2><a name=""></a></h2>
+  <p>This is the  API</p>
+
+  <h2><a name="deleteUser"></a>deleteUser</h2>
+  <hr>
+  <p></p>
+  <p>This can only be done by the logged in user.</p>
+  <h3 class="section">URL</h3>
+  <code>https://virtserver.swaggerhub.com/rawsas/test2/1.0.0/user/{userId}</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>DELETE</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model=""><a href=""></a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">userId</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">The name that needs to be deleted</p>
+	  </li>
+  </ul>
+  <h2><a name="getUserByName"></a>getUserByName</h2>
+  <hr>
+  <p></p>
+  <p></p>
+  <h3 class="section">URL</h3>
+  <code>https://virtserver.swaggerhub.com/rawsas/test2/1.0.0/user/{userId}</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model="User"><a href="">User</a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">userId</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">The ID that needs to be fetched. </p>
+	  </li>
+  </ul>
+  <h2><a name="userLogin"></a>userLogin</h2>
+  <hr>
+  <p></p>
+  <p>Server will validate the authentication and issue a key.  If the authentication provider did not release an email address then a 403 response is given, and user must provide email.</p>
+  <h3 class="section">URL</h3>
+  <code>https://virtserver.swaggerhub.com/rawsas/test2/1.0.0/user/login</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model="string"><a href="">String</a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+	  <li class="parameter">
+      
+      <span class="param-in">Query: </span>
+      
+      
+      
+      <span class="param-name">authToken</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">authentication token following user sign up</p>
+	  </li>
+	  <li class="parameter">
+      
+      <span class="param-in">Query: </span>
+      
+      
+      
+      <span class="param-name">authProvider</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">authentication provider (eg Linkedin / Github)</p>
+	  </li>
+  </ul>
+</div>
