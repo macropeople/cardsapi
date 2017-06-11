@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "This is the macro cards API.  To use it you will first need an application\
-    \ key.  You can find out more at macro.cards/apiref."
+    \ key.  You can find out more at macro.cards/apiref. "
   version: "1.0.0"
   title: "Macro Cards"
   termsOfService: "https://macro.cards/terms/"
