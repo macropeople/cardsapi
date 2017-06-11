@@ -99,6 +99,32 @@ paths:
       responses:
         405:
           description: "Invalid input"
+  /cards/{questionId}:
+    patch:
+      tags:
+      - "cards"
+      summary: "Edit a question"
+      description: "Accepts a question, set of answers, an explanation, and performs\
+        \ server side validation of the result"
+      operationId: "editQuestion"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "question ID to update"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Created user card"
+        required: true
+        schema:
+          $ref: "#/definitions/newCard"
+      responses:
+        405:
+          description: "Invalid input"
   /cards/countByTag:
     get:
       tags:
@@ -288,32 +314,6 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "Question not found"
-  /submit/{questionId}:
-    put:
-      tags:
-      - "submit"
-      summary: "Edit a question"
-      description: "Accepts a question, set of answers, an explanation, and performs\
-        \ server side validation of the result"
-      operationId: "editQuestion"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "questionId"
-        in: "path"
-        description: "question ID to update"
-        required: true
-        type: "integer"
-        format: "int64"
-      - in: "body"
-        name: "body"
-        description: "Created user card"
-        required: true
-        schema:
-          $ref: "#/definitions/newCard"
-      responses:
-        405:
-          description: "Invalid input"
     delete:
       tags:
       - "submit"
