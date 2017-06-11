@@ -78,6 +78,27 @@ paths:
           description: "Tag not found"
         405:
           description: "Validation exception"
+  /cards:
+    post:
+      tags:
+      - "submit"
+      - "cards"
+      summary: "Submit a new question to the question bank"
+      description: "Accepts a question, set of answers, an explanation, and performs\
+        \ server side validation of the result"
+      operationId: "submitQuestion"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created user card"
+        required: true
+        schema:
+          $ref: "#/definitions/newCard"
+      responses:
+        405:
+          description: "Invalid input"
   /cards/countByTag:
     get:
       tags:
@@ -267,26 +288,6 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "Question not found"
-  /submit:
-    post:
-      tags:
-      - "submit"
-      summary: "Submit a new question to the question bank"
-      description: "Accepts a question, set of answers, an explanation, and performs\
-        \ server side validation of the result"
-      operationId: "submitQuestion"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Created user card"
-        required: true
-        schema:
-          $ref: "#/definitions/newCard"
-      responses:
-        405:
-          description: "Invalid input"
   /submit/{questionId}:
     put:
       tags:
