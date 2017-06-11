@@ -79,6 +79,37 @@ paths:
         405:
           description: "Validation exception"
   /cards:
+    get:
+      tags:
+      - "cards"
+      summary: "Find a random card (can be filtered by Tag)"
+      description: "The backend will return a random card.  A tag filter may be applied.\
+        \  The user's number of correct answers in a row will also be returned.  If\
+        \ this request is submitted by the same user from 2 browsers within 2 minutes,\
+        \ the first card will be deemed to have been answered incorrectly.  If it\
+        \ is found that the user's previous question was not answered within 2 minutes,\
+        \ it will be marked as incorrect.  If the users previous card was answered\
+        \ incorrectly, or it is the users first card for this tag combination, then\
+        \ an easy card will be returned.  Otherwise cards will be returned with progressive\
+        \ difficulty."
+      operationId: "cardGet"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "countCards"
+        description: "Input is optional - left blank will return a random question\
+          \ from the entire question bank"
+        required: false
+        schema:
+          $ref: "#/definitions/cardTagFilter"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Question"
+        400:
+          description: "Invalid tag value"
     post:
       tags:
       - "submit"
@@ -143,72 +174,12 @@ paths:
         description: "Input is optional - left blank will return all tags and a count"
         required: false
         schema:
-          $ref: "#/definitions/cardCount"
+          $ref: "#/definitions/cardTagFilter"
       responses:
         200:
           description: "successful operation"
           schema:
             $ref: "#/definitions/tagCount"
-        400:
-          description: "Invalid tag value"
-  /cards/findByTagAll:
-    get:
-      tags:
-      - "cards"
-      summary: "Find a Card with ALL supplied Tags"
-      description: " The backend will return a card that contains all the supplied\
-        \ tags.  The number of correct answers in a row will also be returned.  If\
-        \ this request is submitted by the same user from 2 browsers within 2 minutes,\
-        \ the first card will be deemed to have been answered incorrectly.  If it\
-        \ is found that the user's previous question was not answered within 2 minutes,\
-        \ it will be marked as incorrect.  If the users previous card was answered\
-        \ incorrectly, or it is the users first card for this tag combination, then\
-        \ an easy card will be returned.  Otherwise cards will be returned with progressive\
-        \ difficulty."
-      operationId: "findCardByTagAll"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "tags"
-        in: "query"
-        description: "Muliple tags can be comma separated in an array."
-        required: true
-        type: "array"
-        items:
-          type: "integer"
-          format: "int64"
-        collectionFormat: "multi"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Question"
-        400:
-          description: "Invalid tag value"
-  /cards/findByTagAny:
-    get:
-      tags:
-      - "cards"
-      summary: "Find a Card with ANY of the supplied tags"
-      description: "As per findByTagAll but will match ANY tag."
-      operationId: "findCardByTagAny"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "tags"
-        in: "query"
-        description: "Tags to filter by"
-        required: true
-        type: "array"
-        items:
-          type: "integer"
-          format: "int64"
-        collectionFormat: "multi"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Question"
         400:
           description: "Invalid tag value"
   /cards/{questionId}/verify:
@@ -392,7 +363,7 @@ definitions:
         format: "int64"
       answerText:
         type: "string"
-  cardCount:
+  cardTagFilter:
     type: "object"
     properties:
       tags:
