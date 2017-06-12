@@ -79,37 +79,6 @@ paths:
         405:
           description: "Validation exception"
   /cards:
-    get:
-      tags:
-      - "cards"
-      summary: "Find a random card (can be filtered by Tag)"
-      description: "The backend will return a random card.  A tag filter may be applied.\
-        \  The user's number of correct answers in a row will also be returned.  If\
-        \ this request is submitted by the same user from 2 browsers within 2 minutes,\
-        \ the first card will be deemed to have been answered incorrectly.  If it\
-        \ is found that the user's previous question was not answered within 2 minutes,\
-        \ it will be marked as incorrect.  If the users previous card was answered\
-        \ incorrectly, or it is the users first card for this tag combination, then\
-        \ an easy card will be returned.  Otherwise cards will be returned with progressive\
-        \ difficulty."
-      operationId: "cardGet"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "countCards"
-        description: "Input is optional - left blank will return a random question\
-          \ from the entire question bank"
-        required: false
-        schema:
-          $ref: "#/definitions/cardTagFilter"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Question"
-        400:
-          description: "Invalid tag value"
     post:
       tags:
       - "submit"
@@ -182,6 +151,38 @@ paths:
             $ref: "#/definitions/tagCount"
         400:
           description: "Invalid tag value"
+  /cards/run:
+    get:
+      tags:
+      - "cards"
+      summary: "Find a random Card (can be filtered by Tag)"
+      description: "The backend will return a random card.  A tag filter may be applied.\
+        \  The user's number of correct answers in a row will also be returned.  If\
+        \ this request is submitted by the same user from 2 browsers within 2 minutes,\
+        \ the first card will be deemed to have been answered incorrectly.  If it\
+        \ is found that the user's previous question was not answered within 2 minutes,\
+        \ it will be marked as incorrect.  If the users previous card was answered\
+        \ incorrectly, or it is the users first card for this tag combination, then\
+        \ an easy card will be returned.  Otherwise cards will be returned with progressive\
+        \ difficulty."
+      operationId: "cardGet"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "countCards"
+        description: "Input is optional - left blank will return a random question\
+          \ from the entire question bank"
+        required: false
+        schema:
+          $ref: "#/definitions/cardTagFilter"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Question"
+        400:
+          description: "Invalid tag value"
   /cards/{questionId}/verify:
     put:
       tags:
@@ -241,7 +242,7 @@ paths:
           description: "Question not found"
     delete:
       tags:
-      - "submit"
+      - "cards"
       summary: "Deletes a question"
       description: "Marks question as deleted"
       operationId: "deleteQuestion"
@@ -269,16 +270,13 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "authToken"
-        in: "query"
-        description: "authentication token following user sign up"
-        required: true
-        type: "string"
-      - name: "authProvider"
-        in: "query"
-        description: "authentication provider (eg Linkedin / Github)"
-        required: true
-        type: "string"
+      - in: "body"
+        name: "userLogin"
+        description: "Authentication validation is performed server-side against the\
+          \ authProvider"
+        required: false
+        schema:
+          $ref: "#/definitions/userLogin"
       responses:
         200:
           description: "successful operation"
@@ -490,6 +488,15 @@ definitions:
         type: "string"
       email:
         type: "string"
+  userLogin:
+    type: "object"
+    properties:
+      authToken:
+        type: "string"
+        description: "authentication token following user sign up"
+      authProvider:
+        type: "string"
+        description: "authentication provider (eg Linkedin / Github)"
   Tag:
     type: "object"
     properties:
@@ -516,5 +523,5 @@ definitions:
         format: "int64"
         example: 324
 externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+  description: "Find out more about Swagger Spec"
+  url: "http://swagger.io/specification/"
