@@ -258,6 +258,33 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "Question not found"
+  /user/signup:
+    get:
+      tags:
+      - "user"
+      summary: "verifies an authentication request and issues key"
+      description: "Server will validate the authentication and issue a key.  However\
+        \ if no email exists for the user, or the terms haven't been signed, a 403\
+        \ response is given further info requested."
+      operationId: "userLogin"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "userLogin"
+        description: "Authentication validation is performed server-side against the\
+          \ authProvider"
+        required: false
+        schema:
+          $ref: "#/definitions/userLogin"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+            example: "myMacroCardsAuthKey88234lksdvadkfj23452"
+        401:
+          description: "could not verify authentication details"
   /user/login:
     get:
       tags:
@@ -501,6 +528,9 @@ definitions:
       authProvider:
         type: "string"
         description: "authentication provider (eg Linkedin / Github)"
+      userid:
+        type: "string"
+        description: "authentication provider user id"
   Tag:
     type: "object"
     properties:
