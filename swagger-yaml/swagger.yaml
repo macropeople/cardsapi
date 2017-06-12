@@ -12,7 +12,7 @@ info:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: "virtserver.swaggerhub.com"
-basePath: "/rawsas/test2/1.0.0"
+basePath: "/rawsas/macro-cards/1.0.0"
 tags:
 - name: "tags"
   description: "Choose a tag"
@@ -263,9 +263,9 @@ paths:
       tags:
       - "user"
       summary: "verifies an authentication request and issues key"
-      description: "Server will validate the authentication and issue a key.  If the\
-        \ authentication provider did not release an email address then a 403 response\
-        \ is given, and user must provide email."
+      description: "Server will validate the authentication and issue a key.  However\
+        \ if no email exists for the user, or the terms haven't been signed, a 403\
+        \ response is given further info requested."
       operationId: "userLogin"
       produces:
       - "application/json"
@@ -284,7 +284,11 @@ paths:
             type: "string"
             example: "myMacroCardsAuthKey88234lksdvadkfj23452"
         403:
-          description: "email required"
+          description: "further info required"
+          schema:
+            type: "string"
+            example: "email"
+            description: "valid values include: email,terms"
   /user/{userId}:
     get:
       tags:
@@ -493,7 +497,7 @@ definitions:
     properties:
       authToken:
         type: "string"
-        description: "authentication token following user sign up"
+        description: "authentication token"
       authProvider:
         type: "string"
         description: "authentication provider (eg Linkedin / Github)"
