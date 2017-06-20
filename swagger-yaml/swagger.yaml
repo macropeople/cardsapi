@@ -1,6 +1,8 @@
+---
 swagger: "2.0"
 info:
-  description: "This is the macro cards API.  To use it you will first need an application key.  You can find out more at macro.cards/apiref. "
+  description: "This is the macro cards API.  To use it you will first need an application\
+    \ key.  You can find out more at macro.cards/apiref. "
   version: "1.0.0"
   title: "Macro Cards"
   termsOfService: "https://macro.cards/terms/"
@@ -9,15 +11,16 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-# host: "api.macro.cards"
-# basePath: "/v1"
+host: "virtserver.swaggerhub.com"
+basePath: "/rawsas/macro-cards/1.0.0"
 tags:
 - name: "auth"
   description: "Authentications"
 - name: "tags"
   description: "Choose a tag"
 - name: "cards"
-  description: "This mode will only return questions that have never been answered correctly."
+  description: "This mode will only return questions that have never been answered\
+    \ correctly."
   externalDocs:
     description: "Find out more"
     url: "http://macro.cards/about"
@@ -48,40 +51,20 @@ paths:
         description: "params for facebook auth"
         required: true
         schema:
-          type: object
-          properties:
-            auth_token:
-              type: string
+          $ref: "#/definitions/params"
       responses:
         200:
           description: "successful operation"
           schema:
-            type: "object"
-            properties:
-              success:
-                type: "boolean"
-                description: "specifies if authentication was successful or not"
-              user:
-                $ref: "#/definitions/User"
-              error:
-                type: "string"
-                description: "error message in case of failure"
+            $ref: "#/definitions/inline_response_200"
         401:
           description: "The auth_token sent was Invalid"
           schema:
-            type: "object"
-            properties:
-              error:
-                type: "string"
-                description: "error message"
+            $ref: "#/definitions/inline_response_401"
         500:
           description: "Unknown error occured"
           schema:
-            type: "object"
-            properties:
-              error:
-                type: "string"
-                description: "error message"
+            $ref: "#/definitions/inline_response_401"
   /auth/google:
     post:
       tags:
@@ -99,40 +82,20 @@ paths:
         description: "params for google auth"
         required: true
         schema:
-          type: object
-          properties:
-            auth_token:
-              type: string
+          $ref: "#/definitions/params_1"
       responses:
         200:
           description: "successful operation"
           schema:
-            type: "object"
-            properties:
-              success:
-                type: "boolean"
-                description: "specifies if authentication was successful or not"
-              user:
-                $ref: "#/definitions/User"
-              error:
-                type: "string"
-                description: "error message in case of failure"
+            $ref: "#/definitions/inline_response_200"
         401:
           description: "The auth_token sent was Invalid"
           schema:
-            type: "object"
-            properties:
-              error:
-                type: "string"
-                description: "error message"
+            $ref: "#/definitions/inline_response_401"
         500:
           description: "Unknown error occured"
           schema:
-            type: "object"
-            properties:
-              error:
-                type: "string"
-                description: "error message"
+            $ref: "#/definitions/inline_response_401"
   /auth/linkedin:
     post:
       tags:
@@ -150,43 +113,23 @@ paths:
         description: "params for linkedin auth"
         required: true
         schema:
-          type: object
-          properties:
-            auth_token:
-              type: string
+          $ref: "#/definitions/params_2"
       responses:
         200:
           description: "successful operation"
           schema:
-            type: "object"
-            properties:
-              success:
-                type: "boolean"
-                description: "specifies if authentication was successful or not"
-              user:
-                $ref: "#/definitions/User"
-              error:
-                type: "string"
-                description: "error message in case of failure"
+            $ref: "#/definitions/inline_response_200"
         401:
           description: "The auth_token sent was Invalid"
           schema:
-            type: "object"
-            properties:
-              error:
-                type: "string"
-                description: "error message"
+            $ref: "#/definitions/inline_response_401"
         500:
           description: "Unknown error occured"
           schema:
-            type: "object"
-            properties:
-              error:
-                type: "string"
-                description: "error message"
+            $ref: "#/definitions/inline_response_401"
   /privacy:
     get:
-      tags: 
+      tags:
       - "privacy"
       summary: "retreive the latest privacy policy"
       operationId: "getPrivacy"
@@ -194,14 +137,12 @@ paths:
       - "application/json"
       produces:
       - "application/json"
+      parameters: []
       responses:
         200:
           description: "get latest privacy policy"
           schema:
-            type: "object"
-            properties:
-              privacy:
-                $ref: "#/definitions/Privacy"
+            $ref: "#/definitions/inline_response_200_1"
   /privacy/{id}/accept:
     patch:
       tags:
@@ -222,26 +163,15 @@ paths:
         200:
           description: "privacy policy accepted"
           schema:
-            type: "object"
-            properties:
-              success:
-                type: "boolean"
-              privacy:
-                $ref: "#/definitions/Privacy"
+            $ref: "#/definitions/inline_response_200_2"
         404:
           description: "invalid privacy id"
           schema:
-            type: "object"
-            properties:
-              error:
-                type: "string"
+            $ref: "#/definitions/inline_response_404"
         500:
           description: "server error occurred"
           schema:
-            type: "object"
-            properties:
-              error:
-                type: "string"
+            $ref: "#/definitions/inline_response_404"
   /tags:
     get:
       tags:
@@ -251,6 +181,7 @@ paths:
       operationId: "getTags"
       produces:
       - "application/json"
+      parameters: []
       responses:
         200:
           description: "successful operation"
@@ -293,7 +224,8 @@ paths:
       - "submit"
       - "cards"
       summary: "Submit a new question to the question bank"
-      description: "Accepts a question, set of answers, an explanation, and performs server side validation of the result"
+      description: "Accepts a question, set of answers, an explanation, and performs\
+        \ server side validation of the result"
       operationId: "submitQuestion"
       produces:
       - "application/json"
@@ -312,7 +244,8 @@ paths:
       tags:
       - "cards"
       summary: "Edit a question"
-      description: "Accepts a question, set of answers, an explanation, and performs server side validation of the result"
+      description: "Accepts a question, set of answers, an explanation, and performs\
+        \ server side validation of the result"
       operationId: "editQuestion"
       produces:
       - "application/json"
@@ -337,7 +270,10 @@ paths:
       tags:
       - "cards"
       summary: "Number of Cards available"
-      description: "Excludes cards which the user has answered correctly in the past. If input is blank, returns list of tags and a count of available cards for each.  If tag list supplied, shows how many cards are available that have ALL or ANY of the supplied tags"
+      description: "Excludes cards which the user has answered correctly in the past.\
+        \ If input is blank, returns list of tags and a count of available cards for\
+        \ each.  If tag list supplied, shows how many cards are available that have\
+        \ ALL or ANY of the supplied tags"
       operationId: "countCards"
       produces:
       - "application/json"
@@ -345,6 +281,7 @@ paths:
       - in: "body"
         name: "countCards"
         description: "Input is optional - left blank will return all tags and a count"
+        required: false
         schema:
           $ref: "#/definitions/cardTagFilter"
       responses:
@@ -359,14 +296,24 @@ paths:
       tags:
       - "cards"
       summary: "Find a random Card (can be filtered by Tag)"
-      description: "The backend will return a random card.  A tag filter may be applied.  The user's number of correct answers in a row will also be returned.  If this request is submitted by the same user from 2 browsers within 2 minutes, the first card will be deemed to have been answered incorrectly.  If it is found that the user's previous question was not answered within 2 minutes, it will be marked as incorrect.  If the users previous card was answered incorrectly, or it is the users first card for this tag combination, then an easy card will be returned.  Otherwise cards will be returned with progressive difficulty."
+      description: "The backend will return a random card.  A tag filter may be applied.\
+        \  The user's number of correct answers in a row will also be returned.  If\
+        \ this request is submitted by the same user from 2 browsers within 2 minutes,\
+        \ the first card will be deemed to have been answered incorrectly.  If it\
+        \ is found that the user's previous question was not answered within 2 minutes,\
+        \ it will be marked as incorrect.  If the users previous card was answered\
+        \ incorrectly, or it is the users first card for this tag combination, then\
+        \ an easy card will be returned.  Otherwise cards will be returned with progressive\
+        \ difficulty."
       operationId: "cardGet"
       produces:
       - "application/json"
       parameters:
       - in: "body"
         name: "countCards"
-        description: "Input is optional - left blank will return a random question from the entire question bank"
+        description: "Input is optional - left blank will return a random question\
+          \ from the entire question bank"
+        required: false
         schema:
           $ref: "#/definitions/cardTagFilter"
       responses:
@@ -381,7 +328,12 @@ paths:
       tags:
       - "cards"
       summary: "Get result and explanation"
-      description: "Returns the result (pass / fail), the correct answer and the explanation.  Number of tokens earned (if any) is also returned.  If the user had started another Card in another browser in the last 2 minutes, that Card is marked incorrect (after this one). If the user had 'timed out' from a previous question, then that Card is marked incorrect (before this one, hence losing the streak).   "
+      description: "Returns the result (pass / fail), the correct answer and the explanation.\
+        \  Number of tokens earned (if any) is also returned.  If the user had started\
+        \ another Card in another browser in the last 2 minutes, that Card is marked\
+        \ incorrect (after this one). If the user had 'timed out' from a previous\
+        \ question, then that Card is marked incorrect (before this one, hence losing\
+        \ the streak).   "
       operationId: "verifyCard"
       produces:
       - "application/json"
@@ -406,7 +358,9 @@ paths:
       tags:
       - "cards"
       summary: "Vote on a question"
-      description: "Users can vote questions up (good quality) or down (poor quality).  The user is NOT able to vote if they have previously viewed statistics for this question (and therefore know who it was created by)"
+      description: "Users can vote questions up (good quality) or down (poor quality).\
+        \  The user is NOT able to vote if they have previously viewed statistics\
+        \ for this question (and therefore know who it was created by)"
       operationId: "voteCard"
       produces:
       - "application/json"
@@ -449,16 +403,20 @@ paths:
       tags:
       - "user"
       summary: "verifies an authentication request and issues key"
-      description: "Server will validate the authentication and issue a key.  However if no email exists for the user, or the terms haven't been signed, a 403 response is given further info requested."
+      description: "Server will validate the authentication and issue a key.  However\
+        \ if no email exists for the user, or the terms haven't been signed, a 403\
+        \ response is given further info requested."
       operationId: "userSignup"
+      produces:
+      - "application/json"
       parameters:
       - in: "body"
         name: "userSignup"
-        description: "Authentication validation is performed server-side against the authProvider"
+        description: "Authentication validation is performed server-side against the\
+          \ authProvider"
+        required: false
         schema:
           $ref: "#/definitions/userLogin"
-      produces:
-      - "application/json"
       responses:
         200:
           description: "successful operation"
@@ -472,16 +430,20 @@ paths:
       tags:
       - "user"
       summary: "verifies an authentication request and issues key"
-      description: "Server will validate the authentication and issue a key.  However if no email exists for the user, or the terms haven't been signed, a 403 response is given further info requested."
+      description: "Server will validate the authentication and issue a key.  However\
+        \ if no email exists for the user, or the terms haven't been signed, a 403\
+        \ response is given further info requested."
       operationId: "userLogin"
+      produces:
+      - "application/json"
       parameters:
       - in: "body"
         name: "userLogin"
-        description: "Authentication validation is performed server-side against the authProvider"
+        description: "Authentication validation is performed server-side against the\
+          \ authProvider"
+        required: false
         schema:
           $ref: "#/definitions/userLogin"
-      produces:
-      - "application/json"
       responses:
         200:
           description: "successful operation"
@@ -490,7 +452,7 @@ paths:
             example: "myMacroCardsAuthKey88234lksdvadkfj23452"
         403:
           description: "further info required"
-          schema: 
+          schema:
             type: "string"
             example: "email"
             description: "valid values include: email,terms"
@@ -575,14 +537,14 @@ definitions:
     properties:
       tags:
         type: "array"
-        example: 12,244,3
+        example: "12,244,3"
         items:
           type: "integer"
           format: "int64"
       filterType:
         type: "string"
-        description: "Choose to filter for ANY or ALL Tags"
         example: "ANY"
+        description: "Choose to filter for ANY or ALL Tags"
   cardResponse:
     type: "object"
     properties:
@@ -594,8 +556,8 @@ definitions:
         - "fail"
       answerId:
         type: "integer"
-        description: "the id of the correct answer"
         format: "int64"
+        description: "the id of the correct answer"
       answerText:
         type: "string"
         example: "XYZ"
@@ -604,18 +566,21 @@ definitions:
         type: "string"
         example: "you should have choosed XYZ, stupid"
       voteResultPrevious:
-        type: integer
+        type: "integer"
         example: 2
         description: "The users previous vote - 0=unvoted, 1=down, 2=up"
       voteLock:
-        type: integer
+        type: "integer"
         example: 0
-        description: "If it is the users own question, or they have previously viewed the statistics, the vote is locked (else the vote may be skewed by who wrote the question)"
+        description: "If it is the users own question, or they have previously viewed\
+          \ the statistics, the vote is locked (else the vote may be skewed by who\
+          \ wrote the question)"
       tokensEarned:
         type: "integer"
         format: "int64"
         example: -2
-        description: "The number of tokens earned (if any).  For the first card, 2 tokens are deducted. For card 5 and beyond, 1 token is earned."
+        description: "The number of tokens earned (if any).  For the first card, 2\
+          \ tokens are deducted. For card 5 and beyond, 1 token is earned."
   cardStatistics:
     type: "object"
     properties:
@@ -641,11 +606,11 @@ definitions:
   newCard:
     type: "object"
     required:
-    - "questionType"
-    - "questionTitle"
-    - "questionBody"
     - "answers"
     - "explanationText"
+    - "questionBody"
+    - "questionTitle"
+    - "questionType"
     properties:
       questionType:
         type: "string"
@@ -698,14 +663,14 @@ definitions:
     type: "object"
     properties:
       authToken:
-        description: authentication token 
-        type: string
+        type: "string"
+        description: "authentication token"
       authProvider:
-        description: authentication provider (eg Linkedin / Github)
-        type: string 
+        type: "string"
+        description: "authentication provider (eg Linkedin / Github)"
       userid:
-        description: authentication provider user id
-        type: string
+        type: "string"
+        description: "authentication provider user id"
   Tag:
     type: "object"
     properties:
@@ -730,10 +695,9 @@ definitions:
       tagCount:
         type: "integer"
         format: "int64"
-        example: "324"
+        example: 324
   Privacy:
     type: "object"
-    description: "Privacy Policy or T&C object"
     properties:
       id:
         type: "integer"
@@ -745,18 +709,60 @@ definitions:
         - "Privacy Policy"
         - "T&C"
       body:
+        type: "string"
         description: "contents of policy"
-        type: "string"
       version:
-        description: "version of policy"
         type: "string"
+        description: "version of policy"
       created_at:
         type: "string"
       updated_at:
         type: "string"
+    description: "Privacy Policy or T&C object"
+  params:
+    type: "object"
+    properties:
+      auth_token:
+        type: "string"
+  inline_response_200:
+    properties:
+      success:
+        type: "boolean"
+        description: "specifies if authentication was successful or not"
+      user:
+        $ref: "#/definitions/User"
+      error:
+        type: "string"
+        description: "error message in case of failure"
+  inline_response_401:
+    properties:
+      error:
+        type: "string"
+        description: "error message"
+  params_1:
+    type: "object"
+    properties:
+      auth_token:
+        type: "string"
+  params_2:
+    type: "object"
+    properties:
+      auth_token:
+        type: "string"
+  inline_response_200_1:
+    properties:
+      privacy:
+        $ref: "#/definitions/Privacy"
+  inline_response_200_2:
+    properties:
+      success:
+        type: "boolean"
+      privacy:
+        $ref: "#/definitions/Privacy"
+  inline_response_404:
+    properties:
+      error:
+        type: "string"
 externalDocs:
   description: "Find out more about Swagger Spec"
   url: "http://swagger.io/specification/"
-# Added by API Auto Mocking Plugin
-host: virtserver.swaggerhub.com
-basePath: /rawsas/macro-cards/1.0.0
