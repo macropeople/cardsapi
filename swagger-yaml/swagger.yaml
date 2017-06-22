@@ -240,6 +240,31 @@ paths:
         405:
           description: "Invalid input"
   /cards/{questionId}:
+    get:
+      tags:
+      - "cards"
+      summary: "Get a question (eg to view or for editing)"
+      description: "Gets the question, set of answers, the explanation, and other\
+        \ statistics (delete status, votes etc)"
+      operationId: "getCard"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "question ID to update"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Created user card"
+        required: true
+        schema:
+          $ref: "#/definitions/getCard"
+      responses:
+        405:
+          description: "Invalid input"
     patch:
       tags:
       - "cards"
@@ -637,6 +662,14 @@ definitions:
         items:
           type: "integer"
           format: "int64"
+  getCard:
+    type: "object"
+    properties:
+      cardDefinition:
+        $ref: "#/definitions/newCard"
+      deleteStatus:
+        type: "boolean"
+        description: "1 = deleted, 0= not delleted"
   submitAnswers:
     type: "object"
     properties:
