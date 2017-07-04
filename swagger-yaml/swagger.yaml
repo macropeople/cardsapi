@@ -636,7 +636,10 @@ definitions:
     properties:
       tags:
         type: "array"
-        example: "12,244,3"
+        example:
+        - 12
+        - 244
+        - 3
         items:
           type: "integer"
           format: "int64"
