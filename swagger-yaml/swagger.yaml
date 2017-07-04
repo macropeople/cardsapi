@@ -634,7 +634,7 @@ definitions:
   cardTagFilter:
     type: "object"
     properties:
-      tags:
+      tags_all:
         type: "array"
         example:
         - 12
@@ -643,10 +643,22 @@ definitions:
         items:
           type: "integer"
           format: "int64"
-      filterType:
-        type: "string"
-        example: "ANY"
-        description: "Choose to filter for ANY or ALL Tags"
+      tags_any:
+        type: "array"
+        example:
+        - 4
+        - 6
+        - 8
+        items:
+          type: "integer"
+          format: "int64"
+      tags_not:
+        type: "array"
+        example:
+        - 1
+        items:
+          type: "integer"
+          format: "int64"
   cardResponse:
     type: "object"
     properties:
