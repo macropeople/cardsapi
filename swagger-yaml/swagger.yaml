@@ -181,7 +181,11 @@ paths:
       operationId: "getTags"
       produces:
       - "application/json"
-      parameters: []
+      parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       responses:
         200:
           description: "successful operation"
@@ -322,6 +326,10 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       - in: "body"
         name: "countCards"
         description: "Input is optional - left blank will return all tags and a count"
@@ -525,6 +533,11 @@ paths:
           description: "Invalid userid supplied"
         404:
           description: "User not found"
+securityDefinitions:
+  Bearer:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
 definitions:
   Question:
     type: "object"
