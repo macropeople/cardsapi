@@ -137,7 +137,11 @@ paths:
       - "application/json"
       produces:
       - "application/json"
-      parameters: []
+      parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       responses:
         200:
           description: "get latest privacy policy"
@@ -154,6 +158,10 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       - name: "id"
         in: "path"
         description: "id of privacy to be accepted"
@@ -207,6 +215,10 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       - name: "tagId"
         in: "path"
         description: "ID of tag to update"
@@ -234,6 +246,10 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       - in: "body"
         name: "body"
         description: "Created user card"
@@ -254,6 +270,10 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       - name: "questionId"
         in: "path"
         description: "question ID to update"
@@ -277,6 +297,10 @@ paths:
         \ But only administrators should be able to view it afterwards."
       operationId: "deleteQuestion"
       parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       - name: "questionId"
         in: "path"
         description: "Question id to delete"
@@ -298,6 +322,10 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       - name: "questionId"
         in: "path"
         description: "question ID to update"
@@ -417,6 +445,10 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       - name: "questionId"
         in: "path"
         description: "ID of question"
@@ -444,6 +476,10 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       - in: "body"
         name: "userSignup"
         description: "Authentication validation is performed server-side against the\
@@ -471,6 +507,10 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       - in: "body"
         name: "userLogin"
         description: "Authentication validation is performed server-side against the\
@@ -500,6 +540,10 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       - name: "userId"
         in: "path"
         description: "The ID that needs to be fetched. "
@@ -523,6 +567,10 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
       - name: "userId"
         in: "path"
         description: "The name that needs to be deleted"
