@@ -138,7 +138,11 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "authorization"
+      - name: "X-User-Email"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-User-Token"
         in: "header"
         required: true
         type: "string"
