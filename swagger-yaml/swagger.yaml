@@ -12,7 +12,7 @@ info:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: "mysascards-staging.herokuapp.com"
-basePath: "/api/cards/v1"
+basePath: "/api/v1"
 tags:
 - name: "auth"
   description: "Authentications"
@@ -250,7 +250,11 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "authorization"
+      - name: "X-User-Email"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-User-Token"
         in: "header"
         required: true
         type: "string"
@@ -358,7 +362,11 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "authorization"
+      - name: "X-User-Email"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-User-Token"
         in: "header"
         required: true
         type: "string"
