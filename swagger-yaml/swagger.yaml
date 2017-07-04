@@ -708,7 +708,6 @@ definitions:
     - "answers"
     - "explanationText"
     - "questionBody"
-    - "questionTitle"
     - "questionType"
     properties:
       questionType:
@@ -718,9 +717,6 @@ definitions:
         - "Single Answer"
         - "Multiple Choice"
         - "User Input"
-      questionTitle:
-        type: "string"
-        example: "My very clever title"
       questionBody:
         type: "string"
         example: "What comes of nothing?"
