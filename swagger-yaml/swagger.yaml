@@ -325,6 +325,14 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - name: "X-User-Email"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "X-User-Token"
+        in: "header"
+        required: true
+        type: "string"
       - in: "body"
         name: "countCards"
         description: "Input is optional - left blank will return all tags and a count"
@@ -596,25 +604,15 @@ definitions:
       tags_all:
         type: "array"
         example:
-        - 12
-        - 244
-        - 3
+        - 1
+        - 2
         items:
           type: "integer"
           format: "int64"
       tags_any:
         type: "array"
         example:
-        - 4
-        - 6
-        - 8
-        items:
-          type: "integer"
-          format: "int64"
-      tags_not:
-        type: "array"
-        example:
-        - 1
+        - 3
         items:
           type: "integer"
           format: "int64"
