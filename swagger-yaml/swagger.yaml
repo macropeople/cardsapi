@@ -253,10 +253,6 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "authorization"
-        in: "header"
-        required: true
-        type: "string"
       - name: "questionId"
         in: "path"
         description: "question ID to update"
@@ -280,10 +276,6 @@ paths:
         \ But only administrators should be able to view it afterwards."
       operationId: "deleteQuestion"
       parameters:
-      - name: "authorization"
-        in: "header"
-        required: true
-        type: "string"
       - name: "questionId"
         in: "path"
         description: "Question id to delete"
@@ -305,10 +297,6 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "authorization"
-        in: "header"
-        required: true
-        type: "string"
       - name: "questionId"
         in: "path"
         description: "question ID to update"
@@ -337,14 +325,6 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "X-User-Email"
-        in: "header"
-        required: true
-        type: "string"
-      - name: "X-User-Token"
-        in: "header"
-        required: true
-        type: "string"
       - in: "body"
         name: "countCards"
         description: "Input is optional - left blank will return all tags and a count"
