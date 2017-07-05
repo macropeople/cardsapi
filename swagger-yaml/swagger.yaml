@@ -325,7 +325,7 @@ paths:
       tags:
       - "cards"
       summary: "Get an entire card (for edit mode)"
-      description: "Get qll question information for editing"
+      description: "Get all question information for editing. "
       operationId: "editCardInfo"
       produces:
       - "application/json"
@@ -348,7 +348,8 @@ paths:
       - "cards"
       summary: "Edit an entire card"
       description: "Accepts a question, set of answers, an explanation, and performs\
-        \ server side validation of the result"
+        \ server side validation of the result.  Answer IDs are ignored, and recalculated\
+        \ server side.  Tag descriptions are also ignored (tagId is used instead)"
       operationId: "editQuestion"
       produces:
       - "application/json"
