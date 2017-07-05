@@ -325,14 +325,6 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "X-User-Email"
-        in: "header"
-        required: true
-        type: "string"
-      - name: "X-User-Token"
-        in: "header"
-        required: true
-        type: "string"
       - in: "body"
         name: "countCards"
         description: "Input is optional - left blank will return all tags and a count"
@@ -601,17 +593,11 @@ definitions:
   cardTagFilter:
     type: "object"
     properties:
-      tags_all:
+      tags_any:
         type: "array"
         example:
         - 1
         - 2
-        items:
-          type: "integer"
-          format: "int64"
-      tags_any:
-        type: "array"
-        example:
         - 3
         items:
           type: "integer"
