@@ -33,6 +33,9 @@ tags:
     url: "http://macro.cards/docs"
 schemes:
 - "https"
+security:
+- AuthToken: []
+  AuthEmail: []
 paths:
   /auth/facebook:
     post:
@@ -162,10 +165,6 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "authorization"
-        in: "header"
-        required: true
-        type: "string"
       - name: "id"
         in: "path"
         description: "id of privacy to be accepted"
@@ -593,6 +592,15 @@ paths:
           description: "Invalid userid supplied"
         404:
           description: "User not found"
+securityDefinitions:
+  AuthEmail:
+    type: "apiKey"
+    name: "X-User-Email"
+    in: "header"
+  AuthToken:
+    type: "apiKey"
+    name: "X-User-Token"
+    in: "header"
 definitions:
   Question:
     type: "object"
