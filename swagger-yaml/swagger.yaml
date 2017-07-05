@@ -616,6 +616,14 @@ definitions:
         items:
           type: "integer"
           format: "int64"
+      tags_not:
+        type: "array"
+        example:
+        - 4
+        - 5
+        items:
+          type: "integer"
+          format: "int64"
   cardResponse:
     type: "object"
     properties:
