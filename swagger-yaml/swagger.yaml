@@ -255,17 +255,15 @@ paths:
       parameters:
       - name: "questionId"
         in: "path"
-        description: "question ID to update"
+        description: "question ID to retrieve"
         required: true
         type: "integer"
         format: "int64"
-      - in: "body"
-        name: "body"
-        description: "Created user card"
-        required: true
-        schema:
-          $ref: "#/definitions/getCard"
       responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/getCard"
         405:
           description: "Invalid input"
     delete:
@@ -704,7 +702,7 @@ definitions:
     type: "object"
     properties:
       cardDefinition:
-        $ref: "#/definitions/newCard"
+        $ref: "#/definitions/getCard_cardDefinition"
       deleteStatus:
         type: "boolean"
         description: "1 = deleted, 0= not delleted"
@@ -835,6 +833,21 @@ definitions:
         type: "integer"
         format: "int64"
         example: 1
+  getCard_cardDefinition:
+    properties:
+      questionType:
+        type: "string"
+        description: "Question Type"
+        enum:
+        - "Single Answer"
+        - "Multiple Choice"
+        - "User Input"
+      questionBody:
+        type: "string"
+        example: "What comes of nothing?"
+      answers:
+        type: "array"
+        example: ""
 externalDocs:
   description: "Find out more about Swagger Spec"
   url: "http://swagger.io/specification/"
