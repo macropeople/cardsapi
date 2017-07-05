@@ -704,7 +704,7 @@ definitions:
         $ref: "#/definitions/getCard_cardDefinition"
       deleteStatus:
         type: "boolean"
-        description: "1 = deleted, 0= not delleted"
+        description: "1 = deleted, 0= not deleted"
       questionId:
         type: "integer"
         example: 1
