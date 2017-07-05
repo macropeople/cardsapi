@@ -706,6 +706,9 @@ definitions:
       deleteStatus:
         type: "boolean"
         description: "1 = deleted, 0= not delleted"
+      quesionId:
+        type: "integer"
+        example: 1
   User:
     type: "object"
     properties:
