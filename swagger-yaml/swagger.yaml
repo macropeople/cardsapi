@@ -687,7 +687,9 @@ definitions:
         type: "string"
         example: "What comes of nothing?"
       answers:
-        $ref: "#/definitions/submitAnswers"
+        type: "array"
+        items:
+          $ref: "#/definitions/newCard_answers"
       explanationText:
         type: "string"
         example: "nothing comes of nothing"
@@ -705,15 +707,6 @@ definitions:
       deleteStatus:
         type: "boolean"
         description: "1 = deleted, 0= not delleted"
-  submitAnswers:
-    type: "object"
-    properties:
-      answerText:
-        type: "string"
-        example: "is this the correct answer?"
-      isCorrect:
-        type: "integer"
-        format: "int64"
   User:
     type: "object"
     properties:
@@ -832,6 +825,15 @@ definitions:
     properties:
       error:
         type: "string"
+  newCard_answers:
+    properties:
+      answerText:
+        type: "string"
+        example: "is this the correct answer?"
+      isCorrect:
+        type: "integer"
+        format: "int64"
+        example: 1
 externalDocs:
   description: "Find out more about Swagger Spec"
   url: "http://swagger.io/specification/"
