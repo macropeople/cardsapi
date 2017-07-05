@@ -593,11 +593,6 @@ paths:
           description: "Invalid userid supplied"
         404:
           description: "User not found"
-securityDefinitions:
-  Bearer:
-    type: "apiKey"
-    name: "Authorization"
-    in: "header"
 definitions:
   Question:
     type: "object"
