@@ -246,9 +246,8 @@ paths:
     get:
       tags:
       - "cards"
-      summary: "Get a question (eg to view or for editing)"
-      description: "Gets the question, set of answers, the explanation, and other\
-        \ statistics (delete status, votes etc)"
+      summary: "Get a question (view mode)"
+      description: "Gets the question and answers, for viewing"
       operationId: "getCard"
       produces:
       - "application/json"
@@ -706,7 +705,7 @@ definitions:
       deleteStatus:
         type: "boolean"
         description: "1 = deleted, 0= not delleted"
-      quesionId:
+      questionId:
         type: "integer"
         example: 1
   User:
