@@ -347,9 +347,8 @@ paths:
       tags:
       - "cards"
       summary: "Edit an entire card"
-      description: "Accepts a question, set of answers, an explanation, and performs\
-        \ server side validation of the result.  Answer IDs are ignored, and recalculated\
-        \ server side.  Tag descriptions are also ignored (tagId is used instead)"
+      description: "Submits a question, set of answers, an explanation, and performs\
+        \ server side validation of the result."
       operationId: "editQuestion"
       produces:
       - "application/json"
