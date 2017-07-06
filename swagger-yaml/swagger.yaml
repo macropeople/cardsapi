@@ -230,7 +230,6 @@ paths:
   /cards:
     post:
       tags:
-      - "submit"
       - "cards"
       summary: "Submit a new question to the question bank"
       description: "Accepts a question, set of answers, an explanation, and performs\
