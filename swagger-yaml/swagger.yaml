@@ -348,7 +348,7 @@ paths:
             $ref: "#/definitions/editCard"
         405:
           description: "Invalid input"
-    patch:
+    put:
       tags:
       - "cards"
       summary: "Edit an entire card"
