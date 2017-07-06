@@ -794,9 +794,9 @@ definitions:
       tagId:
         type: "integer"
         format: "int64"
-      name:
+      tagName:
         type: "string"
-      desc:
+      tagDesc:
         type: "string"
   tagCount:
     type: "array"
