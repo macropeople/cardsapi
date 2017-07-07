@@ -620,8 +620,10 @@ definitions:
       answerId:
         type: "integer"
         format: "int64"
+        example: 2
       answerText:
         type: "string"
+        example: "my final answer"
   answerChosen:
     type: "array"
     description: "MC and SA questions require one or more answers.  If user input\
