@@ -439,6 +439,7 @@ paths:
     put:
       tags:
       - "cards"
+      - "vote"
       summary: "Vote on a question"
       description: "Users can vote questions up (good quality) or down (poor quality).\
         \  The user is NOT able to vote if they have previously viewed statistics\
@@ -447,16 +448,17 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "authorization"
-        in: "header"
-        required: true
-        type: "string"
       - name: "questionId"
         in: "path"
         description: "ID of question"
         required: true
         type: "integer"
         format: "int64"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/voteSubmit"
       responses:
         200:
           description: "successful operation"
@@ -580,6 +582,22 @@ paths:
           description: "Invalid userid supplied"
         404:
           description: "User not found"
+  /voteReasons:
+    get:
+      tags:
+      - "vote"
+      summary: "Get list of reasons for downvoting a question"
+      description: "Provide the list of reasons (and IDs) for downvoting a question.\
+        \  The reasonIds are used in the /cards/{questionId}/vote service."
+      operationId: "getVoteReasons"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/voteReasons"
 securityDefinitions:
   AuthEmail:
     type: "apiKey"
@@ -857,6 +875,36 @@ definitions:
         type: "string"
       updated_at:
         type: "string"
+    description: "Privacy Policy or T&C object"
+  voteReasons:
+    type: "object"
+    properties:
+      voteReasonId:
+        type: "integer"
+        format: "int64"
+        description: "ReasonID for downvote "
+      voteReasonText:
+        type: "string"
+        description: "Reason for downvote"
+        enum:
+        - "Spam"
+        - "Inappropriate Content"
+        - "Other"
+    description: "list of reasons for downvoting a"
+  voteSubmit:
+    type: "object"
+    properties:
+      voteDirection:
+        type: "string"
+        example: "down"
+        enum:
+        - "up"
+        - "down"
+      voteReasonId:
+        type: "integer"
+        format: "int64"
+        description: "ReasonID for downvote, for instance : 1=Spam,2=Inappropriate\
+          \ Content, 3=Other.  See GET /Votes "
     description: "Privacy Policy or T&C object"
   params:
     type: "object"
