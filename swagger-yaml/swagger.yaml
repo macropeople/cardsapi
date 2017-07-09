@@ -648,11 +648,20 @@ definitions:
         type: "string"
         example: "my final answer"
   answerChosen:
-    type: "array"
-    description: "MC and SA questions require one or more answers.  If user input\
-      \ then only answerText required."
-    items:
-      $ref: "#/definitions/Answers"
+    type: "object"
+    properties:
+      answerIds:
+        type: "array"
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: "integer"
+          format: "int64"
+      answerText:
+        type: "string"
+        example: "some user entered input"
   cardTagFilter:
     type: "object"
     properties:
