@@ -662,6 +662,9 @@ definitions:
       answerText:
         type: "string"
         example: "some user entered input"
+    description: "For Single Answer and Multiple Choice, provide one / one or more\
+      \ answer IDs.  For User Input, provide answerText.  This will be compared (case\
+      \ insensitively) with the allowed answers."
   cardTagFilter:
     type: "object"
     properties:
