@@ -692,6 +692,10 @@ definitions:
         example: -2
         description: "The number of tokens earned (if any).  For the first card, 2\
           \ tokens are deducted. For card 5 and beyond, 1 token is earned."
+      started_at:
+        type: "string"
+        format: "date-time"
+        description: "The timestamp at which the question was sent"
   cardStatistics:
     type: "object"
     properties:
