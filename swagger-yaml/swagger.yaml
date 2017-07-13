@@ -146,35 +146,6 @@ paths:
           description: "get latest privacy policy"
           schema:
             $ref: "#/definitions/inline_response_200_1"
-  /privacy/{id}/accept:
-    patch:
-      tags:
-      - "privacy"
-      summary: "accept a privacy given the id"
-      description: "Accepts the privacy given the id for current user"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "id"
-        in: "path"
-        description: "id of privacy to be accepted"
-        required: true
-        type: "integer"
-      responses:
-        200:
-          description: "privacy policy accepted"
-          schema:
-            $ref: "#/definitions/inline_response_200_2"
-        404:
-          description: "invalid privacy id"
-          schema:
-            $ref: "#/definitions/inline_response_404"
-        500:
-          description: "server error occurred"
-          schema:
-            $ref: "#/definitions/inline_response_404"
   /tags:
     get:
       tags:
@@ -957,16 +928,6 @@ definitions:
     properties:
       privacy:
         $ref: "#/definitions/Privacy"
-  inline_response_200_2:
-    properties:
-      success:
-        type: "boolean"
-      privacy:
-        $ref: "#/definitions/Privacy"
-  inline_response_404:
-    properties:
-      error:
-        type: "string"
   getCard_cardDefinition:
     properties:
       questionType:
