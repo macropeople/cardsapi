@@ -665,10 +665,10 @@ definitions:
         enum:
         - "pass"
         - "fail"
-      answerId:
-        type: "integer"
-        format: "int64"
-        description: "the id of the correct answer"
+      answerIds:
+        type: "array"
+        example: ""
+        description: "the id of the correct answer (multiple for multiple choice)"
       answerText:
         type: "string"
         example: "XYZ"
