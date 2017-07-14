@@ -660,11 +660,8 @@ definitions:
     type: "object"
     properties:
       result:
-        type: "string"
-        description: "pass/fail"
-        enum:
-        - "pass"
-        - "fail"
+        type: "boolean"
+        description: "1 = pass, 0=fail"
       answerIds:
         type: "array"
         example: ""
