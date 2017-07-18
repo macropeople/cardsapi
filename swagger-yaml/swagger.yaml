@@ -559,7 +559,7 @@ paths:
           description: "Invalid userid supplied"
         404:
           description: "User not found"
-  /voteReasons:
+  /vote_reasons:
     get:
       tags:
       - "vote"
