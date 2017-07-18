@@ -868,11 +868,11 @@ definitions:
   voteReasons:
     type: "object"
     properties:
-      voteReasonId:
+      vote_reason_id:
         type: "integer"
         format: "int64"
         description: "ReasonID for downvote "
-      voteReasonText:
+      vote_reason_text:
         type: "string"
         description: "Reason for downvote"
         enum:
@@ -883,13 +883,13 @@ definitions:
   voteSubmit:
     type: "object"
     properties:
-      voteDirection:
+      vote_direction:
         type: "string"
         example: "down"
         enum:
         - "up"
         - "down"
-      voteReasonId:
+      vote_reason_id:
         type: "integer"
         format: "int64"
         description: "ReasonID for downvote, for instance : 1=Spam,2=Inappropriate\
