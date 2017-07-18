@@ -272,12 +272,11 @@ paths:
       description: "The backend will return a random card.  A tag filter may be applied.\
         \  The user's number of correct answers in a row will also be returned.  If\
         \ this request is submitted by the same user from 2 browsers within 2 minutes,\
-        \ the first card will be deemed to have been answered incorrectly.  If the\
-        \ user's previous question was not answered within 2 minutes, it will be marked\
-        \ as incorrect.  If the users previous card was answered incorrectly, or it\
-        \ is the users first card for this tag combination, then an easy card will\
-        \ be returned.  Otherwise cards will be returned with progressive difficulty.\
-        \  Only non-deleted cards, and cards with more than -2 votes will be returned."
+        \ the same question will be returned.  If the users previous card was answered\
+        \ incorrectly, or it is the users first card for this tag combination, then\
+        \ an easy card will be returned.  Otherwise cards will be returned with progressive\
+        \ difficulty.  Only non-deleted cards, and cards with more than -2 votes will\
+        \ be returned."
       operationId: "cardGet"
       produces:
       - "application/json"
