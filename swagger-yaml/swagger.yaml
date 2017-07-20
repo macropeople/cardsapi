@@ -343,6 +343,33 @@ paths:
       responses:
         405:
           description: "Invalid input"
+  /cards/{questionId}/statistics:
+    get:
+      tags:
+      - "cards"
+      summary: "Get card statistics"
+      description: "Statistics should only be shown if the user has previously answered\
+        \ the question.  Once statistics are shown, the user loses the ability to\
+        \ vote on that question. "
+      operationId: "viewCard"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to view"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getCard"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Question not found"
   /cards/{questionId}/verify:
     put:
       tags:
