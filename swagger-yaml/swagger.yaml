@@ -348,16 +348,16 @@ paths:
       tags:
       - "cards"
       summary: "Get card statistics"
-      description: "Statistics should only be shown if the user has previously answered\
-        \ the question.  Once statistics are shown, the user loses the ability to\
+      description: "Statistics should only be served if the user has previously answered\
+        \ the question.  Once statistics are served, the user loses the ability to\
         \ vote on that question. "
-      operationId: "viewCard"
+      operationId: "viewCardStatistics"
       produces:
       - "application/json"
       parameters:
       - name: "questionId"
         in: "path"
-        description: "ID of question to view"
+        description: "ID of question for which to view stats"
         required: true
         type: "integer"
         format: "int64"
@@ -365,7 +365,7 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/getCard"
+            $ref: "#/definitions/cardStatistics"
         400:
           description: "Invalid ID supplied"
         404:
@@ -722,18 +722,18 @@ definitions:
   cardStatistics:
     type: "object"
     properties:
-      authorName:
+      author_name:
         type: "string"
         example: "community"
         description: "the user name of the person who submited the card"
-      authorId:
+      author_id:
         type: "integer"
         format: "int64"
-      timesTaken:
+      times_taken:
         type: "integer"
         format: "int64"
         description: "number of times this question has been taken"
-      percentCorrect:
+      percent_correct:
         type: "integer"
         format: "int64"
         description: "percentage of correct answers"
