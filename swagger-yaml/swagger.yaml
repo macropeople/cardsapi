@@ -146,6 +146,22 @@ paths:
           description: "get latest privacy policy"
           schema:
             $ref: "#/definitions/inline_response_200_1"
+  /terms:
+    get:
+      tags:
+      - "privacy"
+      summary: "retreive the latest T&Cs"
+      operationId: "getTerms"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "get latest terms policy"
+          schema:
+            $ref: "#/definitions/inline_response_200_1"
   /tags:
     get:
       tags:
