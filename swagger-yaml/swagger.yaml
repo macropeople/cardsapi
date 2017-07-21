@@ -219,6 +219,57 @@ paths:
         405:
           description: "Invalid input"
   /cards/{questionId}:
+    get:
+      tags:
+      - "cards"
+      summary: "Get question and answers only"
+      description: "In VIEW mode, or if we wish to index questions on a search engine,\
+        \ we may let users visit a question for free.  However, if they want to see\
+        \ the answer or explanation, they will need to RUN and spend 2 tokens. "
+      operationId: "viewCard"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to view"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getCard"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Question not found"
+    put:
+      tags:
+      - "cards"
+      summary: "Edit an entire card"
+      description: "Submits a question, set of answers, an explanation, and performs\
+        \ server side validation of the result."
+      operationId: "editQuestion"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "question ID to update"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Created user card"
+        required: true
+        schema:
+          $ref: "#/definitions/editCard"
+      responses:
+        405:
+          description: "Invalid input"
     delete:
       tags:
       - "cards"
@@ -295,6 +346,31 @@ paths:
             $ref: "#/definitions/Question"
         400:
           description: "Invalid tag value"
+  /cards/taken:
+    get:
+      tags:
+      - "cards"
+      summary: "Get list of recently taken cards"
+      description: "Relevant to View Cards screen.  Will return cards taken, most\
+        \ recent first.  Send page number to return later cards."
+      operationId: "cardsTaken"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "page"
+        description: "Input is optional - left blank will return 12 most recently\
+          \ taken cards."
+        required: false
+        schema:
+          $ref: "#/definitions/Question"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Question"
+        400:
+          description: "Invalid tag value"
   /cards/{questionId}/edit:
     get:
       tags:
@@ -316,31 +392,6 @@ paths:
           description: "success"
           schema:
             $ref: "#/definitions/editCard"
-        405:
-          description: "Invalid input"
-    put:
-      tags:
-      - "cards"
-      summary: "Edit an entire card"
-      description: "Submits a question, set of answers, an explanation, and performs\
-        \ server side validation of the result."
-      operationId: "editQuestion"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "questionId"
-        in: "path"
-        description: "question ID to update"
-        required: true
-        type: "integer"
-        format: "int64"
-      - in: "body"
-        name: "body"
-        description: "Created user card"
-        required: true
-        schema:
-          $ref: "#/definitions/editCard"
-      responses:
         405:
           description: "Invalid input"
   /cards/{questionId}/statistics:
@@ -406,33 +457,6 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/cardResponse"
-        400:
-          description: "Invalid ID supplied"
-        404:
-          description: "Question not found"
-  /cards/{questionId}/view:
-    get:
-      tags:
-      - "cards"
-      summary: "Get question and answers only"
-      description: "In VIEW mode, or if we wish to index questions on a search engine,\
-        \ we may let users visit a question for free.  However, if they want to see\
-        \ the answer or explanation, they will need to RUN and spend 2 tokens. "
-      operationId: "viewCard"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "questionId"
-        in: "path"
-        description: "ID of question to view"
-        required: true
-        type: "integer"
-        format: "int64"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/getCard"
         400:
           description: "Invalid ID supplied"
         404:
