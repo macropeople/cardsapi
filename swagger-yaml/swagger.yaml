@@ -256,7 +256,7 @@ paths:
         description: "Input is optional - left blank will return all tags and a count"
         required: false
         schema:
-          $ref: "#/definitions/cardTagFilter"
+          $ref: "#/definitions/tagFilter"
       responses:
         200:
           description: "successful operation"
@@ -287,7 +287,7 @@ paths:
           \ question from the entire question bank."
         required: false
         schema:
-          $ref: "#/definitions/cardTagFilter"
+          $ref: "#/definitions/tagFilter"
       responses:
         200:
           description: "successful operation"
@@ -370,6 +370,8 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "Question not found"
+        405:
+          description: "User has not answered the question"
   /cards/{questionId}/verify:
     put:
       tags:
@@ -471,6 +473,59 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "Question not found"
+  /sessions/count:
+    get:
+      tags:
+      - "cards"
+      summary: "Number of Sessions available"
+      description: "Excludes sessions which the user has taken in the past. If input\
+        \ is blank, returns list of tags and a full count of available sessions for\
+        \ each.  If tag list supplied, shows how many sessions are available that\
+        \ have ALL or ANY of the supplied tags"
+      operationId: "countSessions"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "countSessions"
+        description: "Input is optional - left blank will return all tags and a count"
+        required: false
+        schema:
+          $ref: "#/definitions/tagFilter"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/tagCount"
+        400:
+          description: "Invalid tag value"
+  /sessions/run:
+    get:
+      tags:
+      - "sessions"
+      summary: "Find a random Session (can be filtered by Tag)"
+      description: "The backend will return the first card from a random session.\
+        \  A tag filter may be applied.  Sessions that the user has taken before are\
+        \ excluded. If the user is already in a session, then the current (unanswered)\
+        \ card is returned."
+      operationId: "sessionRun"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "sessionFilter"
+        description: "Input is optional - left blank will return a random (non-deleted)\
+          \ question from the entire question bank."
+        required: false
+        schema:
+          $ref: "#/definitions/tagFilter"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Question"
+        400:
+          description: "Invalid tag value"
   /user/signup:
     get:
       tags:
@@ -662,26 +717,6 @@ definitions:
       answerText:
         type: "string"
         example: "some user entered input"
-  cardTagFilter:
-    type: "object"
-    properties:
-      tags_any:
-        type: "array"
-        example:
-        - 1
-        - 2
-        - 3
-        items:
-          type: "integer"
-          format: "int64"
-      tags_not:
-        type: "array"
-        example:
-        - 4
-        - 5
-        items:
-          type: "integer"
-          format: "int64"
   cardResponse:
     type: "object"
     properties:
@@ -886,6 +921,26 @@ definitions:
         type: "integer"
         format: "int64"
         example: 324
+  tagFilter:
+    type: "object"
+    properties:
+      tags_any:
+        type: "array"
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: "integer"
+          format: "int64"
+      tags_not:
+        type: "array"
+        example:
+        - 4
+        - 5
+        items:
+          type: "integer"
+          format: "int64"
   Privacy:
     type: "object"
     properties:
