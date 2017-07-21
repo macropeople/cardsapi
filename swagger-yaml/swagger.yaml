@@ -476,7 +476,7 @@ paths:
   /sessions/count:
     get:
       tags:
-      - "cards"
+      - "sessions"
       summary: "Number of Sessions available"
       description: "Excludes sessions which the user has taken in the past. If input\
         \ is blank, returns list of tags and a full count of available sessions for\
@@ -507,7 +507,8 @@ paths:
       description: "The backend will return the first card from a random session.\
         \  A tag filter may be applied.  Sessions that the user has taken before are\
         \ excluded. If the user is already in a session, then the current (unanswered)\
-        \ card is returned."
+        \ card is returned.  The STREAK attribute shows how many questions have been\
+        \ answered (right or wrong), which can be used to deduce progress."
       operationId: "sessionRun"
       produces:
       - "application/json"
