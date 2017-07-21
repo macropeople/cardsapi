@@ -722,7 +722,7 @@ definitions:
   cardStatistics:
     type: "object"
     properties:
-      author_name:
+      author_username:
         type: "string"
         example: "community"
         description: "the user name of the person who submited the card"
@@ -737,10 +737,28 @@ definitions:
         type: "integer"
         format: "int64"
         description: "percentage of correct answers"
-      averageTime:
+      average_time:
         type: "integer"
         format: "int64"
         description: "average number of milliseconds to answer question correctly"
+      total_votes:
+        type: "integer"
+        format: "int64"
+        description: "sum of up and downvotes"
+      create_date:
+        type: "string"
+        format: "date-time"
+        description: "When the card was first created"
+      edit_date:
+        type: "string"
+        format: "date-time"
+        description: "When the card was last edited"
+      editor_id:
+        type: "string"
+        description: "Id of user who last edited the card"
+      editor_username:
+        type: "string"
+        description: "Username of user who last edited the card"
   newCard:
     type: "object"
     required:
@@ -890,6 +908,7 @@ definitions:
         type: "string"
       updated_at:
         type: "string"
+        format: "date-time"
     description: "Privacy Policy or T&C object"
   voteReasons:
     type: "object"
