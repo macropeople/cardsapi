@@ -546,7 +546,10 @@ paths:
         \  A tag filter may be applied.  Sessions that the user has taken before are\
         \ excluded. If the user is already in a session, then the current (unanswered)\
         \ card is returned.  The STREAK attribute shows how many questions have been\
-        \ answered (right or wrong), which can be used to deduce progress."
+        \ answered (right or wrong), which can be used to deduce progress.  A session\
+        \ ID is not necessary as the backend knows what session is currently active.\
+        \  The maximum time for a session is 2mins X No of Cards (so 24 mins for a\
+        \ 12 cards session)"
       operationId: "sessionRun"
       produces:
       - "application/json"
