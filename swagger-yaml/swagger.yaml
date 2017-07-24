@@ -545,11 +545,9 @@ paths:
       description: "The backend will return the first card from a random session.\
         \  A tag filter may be applied.  Sessions that the user has taken before are\
         \ excluded. If the user is already in a session, then the current (unanswered)\
-        \ card is returned.  The STREAK attribute shows how many questions have been\
-        \ answered (right or wrong), which can be used to deduce progress.  A session\
-        \ ID is not necessary as the backend knows what session is currently active.\
-        \  The maximum time for a session is 2mins X No of Cards (so 24 mins for a\
-        \ 12 cards session)"
+        \ card is returned.  A session ID is not necessary as the backend knows what\
+        \ session is currently active.  The maximum time for a session is 2mins X\
+        \ No of Cards (so 24 mins for a 12 cards session)"
       operationId: "sessionRun"
       produces:
       - "application/json"
@@ -565,7 +563,7 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Question"
+            $ref: "#/definitions/sessionRun"
         400:
           description: "Invalid tag value"
   /user/signup:
@@ -934,6 +932,32 @@ definitions:
       userid:
         type: "string"
         description: "authentication provider user id"
+  sessionRun:
+    type: "object"
+    properties:
+      questionId:
+        type: "integer"
+        format: "int64"
+      questionType:
+        type: "string"
+        description: "Question Type"
+        enum:
+        - "Single Answer"
+        - "Multiple Choice"
+        - "User Input"
+      questionBody:
+        type: "string"
+      answers:
+        type: "array"
+        items:
+          $ref: "#/definitions/Answers"
+      cards_taken:
+        type: "integer"
+      cards_remaining:
+        type: "integer"
+      time_remaining:
+        type: "integer"
+        description: "milliseconds remaining until session expires"
   Tag:
     type: "object"
     properties:
