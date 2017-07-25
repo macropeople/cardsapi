@@ -1031,16 +1031,8 @@ definitions:
       tagDesc:
         type: "string"
   tagCount:
-    type: "array"
-    items:
-      $ref: "#/definitions/tagCountObj"
-  tagCountObj:
     type: "object"
     properties:
-      tagId:
-        type: "integer"
-        format: "int64"
-        description: "tagId is zero for combination tag counts"
       tagCount:
         type: "integer"
         format: "int64"
