@@ -16,6 +16,8 @@ basePath: "/api/v1"
 tags:
 - name: "auth"
   description: "Authentications"
+- name: "admin"
+  description: "additional functions"
 - name: "tags"
   description: "Choose a tag"
 - name: "cards"
@@ -511,6 +513,24 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "Question not found"
+  /contact:
+    put:
+      tags:
+      - "admin"
+      summary: "Contact Form"
+      description: "Submit feedback or otherwise to site admins via contact form"
+      operationId: "contact"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/contact"
+      responses:
+        200:
+          description: "successful operation"
   /sessions/count:
     get:
       tags:
@@ -556,6 +576,31 @@ paths:
         name: "sessionFilter"
         description: "Input is optional - left blank will return a random (non-deleted)\
           \ question from the entire question bank."
+        required: false
+        schema:
+          $ref: "#/definitions/tagFilter"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/sessionRun"
+        400:
+          description: "Invalid tag value"
+  /sessions/run/next:
+    get:
+      tags:
+      - "sessions"
+      summary: "submit answer and request next card"
+      description: "session ID not necessary as this is identified server side.  question\
+        \ ID should be submitted to verify that a previous answer is not being submitted\
+        \ by mistake."
+      operationId: "sessionRunNext"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "sessionRunNext"
+        description: "provide question ID and submitted answer"
         required: false
         schema:
           $ref: "#/definitions/tagFilter"
@@ -834,6 +879,16 @@ definitions:
       editor_username:
         type: "string"
         description: "Username of user who last edited the card"
+  contact:
+    type: "object"
+    properties:
+      feedback_text:
+        type: "string"
+        example: "here is some feedback"
+        description: "the body of the feedback"
+      feedback_type:
+        type: "string"
+        example: "dropdown list, eg restore account etc"
   newCard:
     type: "object"
     required:
