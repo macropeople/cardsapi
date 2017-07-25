@@ -1033,7 +1033,7 @@ definitions:
   tagCount:
     type: "object"
     properties:
-      tagCount:
+      count:
         type: "integer"
         format: "int64"
         example: 324
