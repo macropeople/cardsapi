@@ -538,6 +538,8 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "Question not found"
+        405:
+          description: "User cannot vote their own card"
   /contact:
     put:
       tags:
