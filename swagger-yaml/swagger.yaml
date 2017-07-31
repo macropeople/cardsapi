@@ -539,7 +539,8 @@ paths:
         404:
           description: "Question not found"
         405:
-          description: "User cannot vote a card that they submitted"
+          description: "User cannot vote a card that they submitted, or if they have\
+            \ voted before, or if they have viewed statistics before"
   /contact:
     put:
       tags:
