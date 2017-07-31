@@ -539,7 +539,7 @@ paths:
         404:
           description: "Question not found"
         405:
-          description: "User cannot vote their own card"
+          description: "User cannot vote a card that they submitted"
   /contact:
     put:
       tags:
