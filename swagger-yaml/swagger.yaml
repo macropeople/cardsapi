@@ -30,9 +30,6 @@ tags:
   description: "Taking a timed exam"
 - name: "submit"
   description: "adding a question to the question bank"
-  externalDocs:
-    description: "Find out more "
-    url: "http://macro.cards/docs"
 schemes:
 - "https"
 security:
@@ -181,6 +178,10 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Tag"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
         404:
           description: "No tags found"
   /tags/count:
@@ -206,6 +207,10 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/tagCount"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
   /tags/{tagId}:
     patch:
       tags:
@@ -235,6 +240,10 @@ paths:
           description: "successful operation"
         400:
           description: "Invalid ID supplied"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
         404:
           description: "Tag not found"
         405:
@@ -257,6 +266,14 @@ paths:
         schema:
           $ref: "#/definitions/newCard"
       responses:
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
         405:
           description: "Invalid input"
   /cards/{questionId}:
@@ -284,6 +301,14 @@ paths:
             $ref: "#/definitions/getCard"
         400:
           description: "Invalid ID supplied"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
         404:
           description: "Question not found"
     put:
@@ -309,6 +334,14 @@ paths:
         schema:
           $ref: "#/definitions/editCard"
       responses:
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
         405:
           description: "Invalid input"
     delete:
@@ -328,6 +361,14 @@ paths:
       responses:
         400:
           description: "Invalid ID supplied"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
         404:
           description: "Question not found"
   /cards/count:
@@ -358,6 +399,10 @@ paths:
             example: 324
         400:
           description: "Invalid tag value"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
   /cards/run:
     get:
       tags:
@@ -389,6 +434,10 @@ paths:
             $ref: "#/definitions/Question"
         400:
           description: "Invalid tag value"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
   /cards/taken:
     get:
       tags:
@@ -412,6 +461,14 @@ paths:
             $ref: "#/definitions/Question"
         400:
           description: "Invalid tag value"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
   /cards/{questionId}/edit:
     get:
       tags:
@@ -433,6 +490,14 @@ paths:
           description: "success"
           schema:
             $ref: "#/definitions/editCard"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
         405:
           description: "Invalid input"
   /cards/{questionId}/statistics:
@@ -460,6 +525,14 @@ paths:
             $ref: "#/definitions/cardStatistics"
         400:
           description: "Invalid ID supplied"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
         404:
           description: "Question not found"
         405:
@@ -500,6 +573,14 @@ paths:
             $ref: "#/definitions/cardResponse"
         400:
           description: "Invalid ID supplied"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
         404:
           description: "Question not found"
   /cards/{questionId}/vote:
@@ -536,6 +617,14 @@ paths:
             $ref: "#/definitions/cardStatistics"
         400:
           description: "Invalid ID supplied"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
         404:
           description: "Question not found"
         405:
@@ -559,6 +648,10 @@ paths:
       responses:
         200:
           description: "successful operation"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
   /sessions/count:
     get:
       tags:
@@ -587,6 +680,14 @@ paths:
             example: 324
         400:
           description: "Invalid tag value"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
   /sessions/run:
     get:
       tags:
@@ -616,6 +717,14 @@ paths:
             $ref: "#/definitions/sessionRun"
         400:
           description: "Invalid tag value"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
   /sessions/run/next:
     get:
       tags:
@@ -641,6 +750,14 @@ paths:
             $ref: "#/definitions/sessionRun"
         400:
           description: "Invalid tag value"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
   /user/signup:
     get:
       tags:
@@ -733,6 +850,14 @@ paths:
             $ref: "#/definitions/User"
         400:
           description: "Invalid username supplied"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
         404:
           description: "User not found"
     delete:
@@ -753,6 +878,14 @@ paths:
       responses:
         400:
           description: "Invalid userid supplied"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
+        403:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resForbidden"
         404:
           description: "User not found"
   /vote_reasons:
@@ -773,6 +906,10 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/voteReasons"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/resUnauthorized"
 securityDefinitions:
   AuthEmail:
     type: "apiKey"
@@ -1118,6 +1255,12 @@ definitions:
         type: "string"
         format: "date-time"
     description: "Privacy Policy or T&C object"
+  resForbidden:
+    type: "string"
+    example: "User does not have the in-app privilege to perform this action"
+  resUnauthorized:
+    type: "string"
+    example: "User has not been authenticated (try signing in)"
   voteReasons:
     type: "object"
     properties:
@@ -1208,6 +1351,15 @@ definitions:
       cardCount:
         type: "integer"
         example: 42
+responses:
+  Forbidden:
+    description: "Unauthorized"
+    schema:
+      $ref: "#/definitions/resForbidden"
+  Unauthorized:
+    description: "Unauthorized"
+    schema:
+      $ref: "#/definitions/resUnauthorized"
 externalDocs:
   description: "Find out more about Swagger Spec"
   url: "http://swagger.io/specification/"
