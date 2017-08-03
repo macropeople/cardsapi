@@ -920,6 +920,12 @@ definitions:
         type: "integer"
         format: "int64"
         description: "sum of up and downvotes"
+      up_votes:
+        type: "integer"
+        format: "int64"
+      down_votes:
+        type: "integer"
+        format: "int64"
       create_date:
         type: "string"
         format: "date-time"
