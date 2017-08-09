@@ -399,18 +399,21 @@ paths:
     get:
       tags:
       - "cards"
-      summary: "Get list of recently taken cards (last 20)"
-      description: "Relevant to View Cards screen.  Will return cards taken, most\
-        \ recent first.  User should have the view cards privilege."
-      operationId: "cardsTaken"
+      summary: "view cards submitted"
+      description: "Returns cards submitted.  Paged."
+      operationId: "cardsSubmitted"
       produces:
       - "application/json"
-      parameters: []
+      parameters:
+      - name: "page_no"
+        in: "query"
+        required: false
+        type: "integer"
       responses:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/cardsTaken"
+            $ref: "#/definitions/cardsSubmitted"
         400:
           description: "Invalid tag value"
         403:
@@ -976,6 +979,10 @@ definitions:
         type: "string"
         format: "date-time"
         description: "The timestamp at which the question was sent"
+  cardsSubmitted:
+    type: "array"
+    items:
+      $ref: "#/definitions/cardsSubmitted_inner"
   cardsTaken:
     type: "array"
     items:
@@ -1338,14 +1345,28 @@ definitions:
     properties:
       privacy:
         $ref: "#/definitions/Privacy"
+  cardsSubmitted_inner:
+    properties:
+      question_id:
+        type: "integer"
+        example: 1
+      question_title:
+        type: "string"
+        example: "Does x = y?"
+        description: "short display description"
+      votes:
+        type: "integer"
+        example: -4
+        description: "number of votes received"
   cardsTaken_inner:
     properties:
       question_id:
         type: "integer"
         example: 1
-      tag_ids:
-        type: "array"
-        example: ""
+      question_title:
+        type: "string"
+        example: "Does x = y?"
+        description: "short display description"
       result:
         type: "string"
         example: "pass"
