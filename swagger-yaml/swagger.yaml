@@ -655,6 +655,37 @@ paths:
         405:
           description: "User cannot vote a card that they submitted, or if they have\
             \ voted before, or if they have viewed statistics before"
+  /comments/{parentCommentId}/comments:
+    post:
+      tags:
+      - "comments"
+      summary: "submit comment"
+      description: "Post Comment.  A user needs to have comment privilege in order\
+        \ to make comments."
+      operationId: "postParentComments"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "parentCommentId"
+        in: "path"
+        description: "ID of Comment"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/commentPostBody"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/commentPostResponse"
+        403:
+          description: "User does not have the in-app privilege to perform this action"
+        405:
+          description: "User has not answered this question"
   /contact:
     put:
       tags:
