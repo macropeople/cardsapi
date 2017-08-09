@@ -400,7 +400,8 @@ paths:
       tags:
       - "cards"
       summary: "view cards submitted"
-      description: "Returns cards submitted.  Paged."
+      description: "Returns cards submitted. 20 results returned, can be paged, default\
+        \ is page 1"
       operationId: "cardsSubmitted"
       produces:
       - "application/json"
