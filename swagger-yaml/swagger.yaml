@@ -33,7 +33,8 @@ tags:
 schemes:
 - "https"
 security:
-- AuthToken: []
+- AppToken: []
+  AuthToken: []
   AuthEmail: []
 paths:
   /auth/facebook:
@@ -398,23 +399,18 @@ paths:
     get:
       tags:
       - "cards"
-      summary: "Get list of recently taken cards"
+      summary: "Get list of recently taken cards (last 20)"
       description: "Relevant to View Cards screen.  Will return cards taken, most\
-        \ recent first.  Send page number to return later cards."
+        \ recent first.  User should have the view cards privilege."
       operationId: "cardsTaken"
       produces:
       - "application/json"
-      parameters:
-      - in: "body"
-        name: "page"
-        required: false
-        schema:
-          $ref: "#/definitions/getCardList"
+      parameters: []
       responses:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Question"
+            $ref: "#/definitions/cardsTaken"
         400:
           description: "Invalid tag value"
         403:
@@ -515,6 +511,33 @@ paths:
           description: "User does not have the in-app privilege to perform this action"
         404:
           description: "Question not found"
+  /cards/{questionId}/view:
+    get:
+      tags:
+      - "cards"
+      summary: "Get an entire card + stats + comments (view mode)"
+      description: "Get all question information for view mode.  A user can only view\
+        \ the last 20 cards they have taken.  They can view any card they have submitted.\
+        \  They also need the view card privilege."
+      operationId: "viewCardInfo"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "question ID to retrieve"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/viewCard"
+        403:
+          description: "User does not have the in-app privilege to perform this action"
+        405:
+          description: "Invalid input"
   /cards/{questionId}/vote:
     put:
       tags:
@@ -799,6 +822,10 @@ paths:
             items:
               $ref: "#/definitions/voteReasons"
 securityDefinitions:
+  AppToken:
+    type: "apiKey"
+    name: "X-User-Email"
+    in: "header"
   AuthEmail:
     type: "apiKey"
     name: "X-User-Email"
@@ -894,6 +921,10 @@ definitions:
         type: "string"
         format: "date-time"
         description: "The timestamp at which the question was sent"
+  cardsTaken:
+    type: "array"
+    items:
+      $ref: "#/definitions/cardsTaken_inner"
   cardStatistics:
     type: "object"
     properties:
@@ -1019,9 +1050,6 @@ definitions:
       questionId:
         type: "integer"
         example: 1
-  getCardList:
-    type: "integer"
-    format: "int64"
   User:
     type: "object"
     properties:
@@ -1149,6 +1177,13 @@ definitions:
         type: "string"
         format: "date-time"
     description: "Privacy Policy or T&C object"
+  viewCard:
+    type: "object"
+    properties:
+      card:
+        $ref: "#/definitions/editCard"
+      stats:
+        $ref: "#/definitions/cardStatistics"
   voteReasons:
     type: "object"
     properties:
@@ -1213,6 +1248,18 @@ definitions:
     properties:
       privacy:
         $ref: "#/definitions/Privacy"
+  cardsTaken_inner:
+    properties:
+      question_id:
+        type: "integer"
+        example: 1
+      tag_ids:
+        type: "array"
+        example: ""
+      result:
+        type: "string"
+        example: "pass"
+        description: "pass/fail"
   getCard_cardDefinition:
     properties:
       questionType:
