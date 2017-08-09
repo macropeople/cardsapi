@@ -447,7 +447,7 @@ paths:
       summary: "retrieve comments"
       description: "Get comments for a card. A user should have previously answered\
         \ (or submitted) the relevant question in order to receive the response."
-      operationId: "comments"
+      operationId: "getComments"
       produces:
       - "application/json"
       parameters:
@@ -461,7 +461,32 @@ paths:
         200:
           description: "success"
           schema:
-            $ref: "#/definitions/cardComments"
+            $ref: "#/definitions/comments"
+        403:
+          description: "User does not have the in-app privilege to perform this action"
+        405:
+          description: "User has not answered this question"
+    post:
+      tags:
+      - "cards"
+      - "comments"
+      summary: "submit comment"
+      description: "Post Comment.  A user needs to have comment privilege in order\
+        \ to make comments."
+      operationId: "postComments"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/commentPostBody"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/commentPostResponse"
         403:
           description: "User does not have the in-app privilege to perform this action"
         405:
@@ -935,14 +960,6 @@ definitions:
       answerText:
         type: "string"
         example: "some user entered input"
-  cardComments:
-    type: "object"
-    properties:
-      message:
-        type: "string"
-        example: "Successfully commented."
-      comment:
-        $ref: "#/definitions/comments"
   cardResponse:
     type: "object"
     properties:
@@ -1034,6 +1051,21 @@ definitions:
       editor_username:
         type: "string"
         description: "Username of user who last edited the card"
+  commentPostBody:
+    type: "object"
+    properties:
+      question_id:
+        type: "integer"
+      comment_markdown:
+        type: "string"
+  commentPostResponse:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+        example: "Successfully commented."
+      comment:
+        $ref: "#/definitions/comments"
   comments:
     type: "object"
     properties:
