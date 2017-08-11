@@ -1053,6 +1053,11 @@ definitions:
         type: "string"
         format: "date-time"
         description: "The timestamp at which the question was sent"
+      user_tokens:
+        type: "integer"
+        format: "int64"
+        example: 544
+        description: "Current user token balance"
   cardsSubmitted:
     type: "object"
     properties:
