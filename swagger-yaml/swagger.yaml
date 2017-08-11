@@ -406,7 +406,7 @@ paths:
         \ incorrectly, or it is the users first card for this tag combination, then\
         \ an easy card will be returned.  Otherwise cards will be returned with progressive\
         \ difficulty.  Only non-deleted cards, and cards with more than -2 votes will\
-        \ be returned."
+        \ be returned.   For user input style, the Answers array will be empty."
       operationId: "cardGet"
       produces:
       - "application/json"
