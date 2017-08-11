@@ -1059,9 +1059,14 @@ definitions:
         format: "date-time"
         description: "The timestamp at which the question was sent"
   cardsSubmitted:
-    type: "array"
-    items:
-      $ref: "#/definitions/cardsSubmitted_inner"
+    type: "object"
+    properties:
+      total_submitted:
+        type: "integer"
+      cards:
+        type: "array"
+        items:
+          $ref: "#/definitions/cardsSubmitted_cards"
   cardsTaken:
     type: "array"
     items:
@@ -1439,7 +1444,7 @@ definitions:
     properties:
       privacy:
         $ref: "#/definitions/Privacy"
-  cardsSubmitted_inner:
+  cardsSubmitted_cards:
     properties:
       question_id:
         type: "integer"
