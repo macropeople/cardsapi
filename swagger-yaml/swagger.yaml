@@ -422,7 +422,7 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Question"
+            $ref: "#/definitions/cardRun"
         400:
           description: "Invalid tag value"
   /cards/submitted:
@@ -972,6 +972,19 @@ securityDefinitions:
     name: "X-User-Token"
     in: "header"
 definitions:
+  cardRun:
+    type: "object"
+    properties:
+      streak:
+        type: "integer"
+        description: "number of consecutive cards answered correctly on current streak"
+      user_tokens:
+        type: "integer"
+        description: "current user balance"
+      Question:
+        $ref: "#/definitions/Question"
+      Answers:
+        $ref: "#/definitions/Answers"
   Question:
     type: "object"
     properties:
@@ -989,23 +1002,10 @@ definitions:
         type: "string"
       questionBody:
         type: "string"
-      answers:
-        type: "array"
-        items:
-          $ref: "#/definitions/Answers"
-      streak:
-        type: "integer"
-        description: "number of consecutive cards answered correctly on current streak"
   Answers:
-    type: "object"
-    properties:
-      answerId:
-        type: "integer"
-        format: "int64"
-        example: 2
-      answerText:
-        type: "string"
-        example: "my final answer"
+    type: "array"
+    items:
+      $ref: "#/definitions/Answers_inner"
   answerChosen:
     type: "object"
     properties:
@@ -1061,7 +1061,7 @@ definitions:
   cardsSubmitted:
     type: "object"
     properties:
-      total_submitted:
+      total_available:
         type: "integer"
       cards:
         type: "array"
@@ -1288,9 +1288,7 @@ definitions:
       questionBody:
         type: "string"
       answers:
-        type: "array"
-        items:
-          $ref: "#/definitions/Answers"
+        $ref: "#/definitions/Answers"
       cards_taken:
         type: "integer"
       cards_remaining:
@@ -1444,6 +1442,15 @@ definitions:
     properties:
       privacy:
         $ref: "#/definitions/Privacy"
+  Answers_inner:
+    properties:
+      answerId:
+        type: "integer"
+        format: "int64"
+        example: 2
+      answerText:
+        type: "string"
+        example: "my final answer"
   cardsSubmitted_cards:
     properties:
       question_id:
