@@ -981,13 +981,6 @@ definitions:
       user_tokens:
         type: "integer"
         description: "current user balance"
-      Question:
-        $ref: "#/definitions/Question"
-      Answers:
-        $ref: "#/definitions/Answers"
-  Question:
-    type: "object"
-    properties:
       questionId:
         type: "integer"
         format: "int64"
@@ -1002,6 +995,8 @@ definitions:
         type: "string"
       questionBody:
         type: "string"
+      answers:
+        $ref: "#/definitions/Answers"
   Answers:
     type: "array"
     items:
