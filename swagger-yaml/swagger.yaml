@@ -1414,6 +1414,8 @@ definitions:
         $ref: "#/definitions/editCard"
       stats:
         $ref: "#/definitions/cardStatistics"
+      comments:
+        $ref: "#/definitions/comments"
   voteReasons:
     type: "object"
     properties:
