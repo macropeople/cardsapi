@@ -1052,6 +1052,17 @@ definitions:
       answerText:
         type: "string"
         example: "some user entered input"
+  answerWithCorrect:
+    type: "array"
+    items:
+      $ref: "#/definitions/answerWithCorrect_inner"
+    example:
+    - answerText: "is this the correct answer?"
+      isCorrect: 1
+    - answerText: "or this one?"
+      isCorrect: 0
+    - answerText: "what about this?"
+      isCorrect: 0
   cardResponse:
     type: "object"
     properties:
@@ -1213,6 +1224,9 @@ definitions:
       feedback_type:
         type: "string"
         example: "dropdown list, eg restore account etc"
+  explanationText:
+    type: "string"
+    example: "nothing comes of nothing"
   newCard:
     type: "object"
     required:
@@ -1222,18 +1236,11 @@ definitions:
     - "questionType"
     properties:
       questionType:
-        type: "string"
-        description: "Question Type"
-        enum:
-        - "Single Answer"
-        - "Multiple Choice"
-        - "User Input"
+        $ref: "#/definitions/questionType"
       questionBody:
-        type: "string"
-        example: "What comes of nothing?"
+        $ref: "#/definitions/questionBody"
       answers:
-        type: "array"
-        example: ""
+        $ref: "#/definitions/answerWithCorrect"
       explanationText:
         type: "string"
         example: "nothing comes of nothing"
@@ -1253,21 +1260,13 @@ definitions:
     - "questionType"
     properties:
       questionType:
-        type: "string"
-        description: "Question Type"
-        enum:
-        - "Single Answer"
-        - "Multiple Choice"
-        - "User Input"
+        $ref: "#/definitions/questionType"
       questionBody:
-        type: "string"
-        example: "What comes of nothing?"
+        $ref: "#/definitions/questionBody"
       answers:
-        type: "array"
-        example: ""
+        $ref: "#/definitions/answerWithCorrect"
       explanationText:
-        type: "string"
-        example: "nothing comes of nothing"
+        $ref: "#/definitions/explanationText"
       tags:
         type: "array"
         example: ""
@@ -1282,6 +1281,16 @@ definitions:
       questionId:
         type: "integer"
         example: 1
+  questionBody:
+    type: "string"
+    example: "What comes of nothing?"
+  questionType:
+    type: "string"
+    description: "Question Type"
+    enum:
+    - "Single Answer"
+    - "Multiple Choice"
+    - "User Input"
   User:
     type: "object"
     properties:
@@ -1315,14 +1324,9 @@ definitions:
         type: "integer"
         format: "int64"
       questionType:
-        type: "string"
-        description: "Question Type"
-        enum:
-        - "Single Answer"
-        - "Multiple Choice"
-        - "User Input"
+        $ref: "#/definitions/questionType"
       questionBody:
-        type: "string"
+        $ref: "#/definitions/questionBody"
       answers:
         $ref: "#/definitions/Answers"
       cards_taken:
@@ -1342,6 +1346,10 @@ definitions:
         type: "string"
       tagDesc:
         type: "string"
+  tagArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/Tag"
   tagEdit:
     type: "object"
     properties:
@@ -1411,7 +1419,7 @@ definitions:
     type: "object"
     properties:
       card:
-        $ref: "#/definitions/editCard"
+        $ref: "#/definitions/viewCard_card"
       stats:
         $ref: "#/definitions/cardStatistics"
       comments:
@@ -1489,6 +1497,14 @@ definitions:
       answerText:
         type: "string"
         example: "my final answer"
+  answerWithCorrect_inner:
+    properties:
+      answerText:
+        type: "string"
+        example: "is this the correct answer?"
+      isCorrect:
+        type: "integer"
+        example: 1
   cardsSubmitted_cards:
     properties:
       question_id:
@@ -1518,15 +1534,9 @@ definitions:
   getCard_cardDefinition:
     properties:
       questionType:
-        type: "string"
-        description: "Question Type"
-        enum:
-        - "Single Answer"
-        - "Multiple Choice"
-        - "User Input"
+        $ref: "#/definitions/questionType"
       questionBody:
-        type: "string"
-        example: "What comes of nothing?"
+        $ref: "#/definitions/questionBody"
       answers:
         type: "array"
         example: ""
@@ -1541,6 +1551,18 @@ definitions:
       cardCount:
         type: "integer"
         example: 42
+  viewCard_card:
+    properties:
+      questionType:
+        $ref: "#/definitions/questionType"
+      questionBody:
+        $ref: "#/definitions/questionBody"
+      answers:
+        $ref: "#/definitions/answerWithCorrect"
+      explanationText:
+        $ref: "#/definitions/explanationText"
+      tags:
+        $ref: "#/definitions/tagArray"
 responses:
   Forbidden:
     description: "User does not have the in-app privilege to perform this action"
