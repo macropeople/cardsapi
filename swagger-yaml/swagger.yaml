@@ -976,6 +976,23 @@ paths:
           description: "User does not have the in-app privilege to perform this action"
         404:
           description: "User not found"
+  /user/status:
+    get:
+      tags:
+      - "user"
+      summary: "returns token count and user level"
+      description: "only returns data for current logged in user"
+      operationId: "userStatus"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/userStatus"
+        401:
+          description: "could not verify authentication details"
   /vote_reasons:
     get:
       tags:
@@ -1052,17 +1069,6 @@ definitions:
       answerText:
         type: "string"
         example: "some user entered input"
-  answerWithCorrect:
-    type: "array"
-    items:
-      $ref: "#/definitions/answerWithCorrect_inner"
-    example:
-    - answerText: "is this the correct answer?"
-      isCorrect: 1
-    - answerText: "or this one?"
-      isCorrect: 0
-    - answerText: "what about this?"
-      isCorrect: 0
   cardResponse:
     type: "object"
     properties:
@@ -1224,9 +1230,6 @@ definitions:
       feedback_type:
         type: "string"
         example: "dropdown list, eg restore account etc"
-  explanationText:
-    type: "string"
-    example: "nothing comes of nothing"
   newCard:
     type: "object"
     required:
@@ -1236,11 +1239,18 @@ definitions:
     - "questionType"
     properties:
       questionType:
-        $ref: "#/definitions/questionType"
+        type: "string"
+        description: "Question Type"
+        enum:
+        - "Single Answer"
+        - "Multiple Choice"
+        - "User Input"
       questionBody:
-        $ref: "#/definitions/questionBody"
+        type: "string"
+        example: "What comes of nothing?"
       answers:
-        $ref: "#/definitions/answerWithCorrect"
+        type: "array"
+        example: ""
       explanationText:
         type: "string"
         example: "nothing comes of nothing"
@@ -1260,13 +1270,21 @@ definitions:
     - "questionType"
     properties:
       questionType:
-        $ref: "#/definitions/questionType"
+        type: "string"
+        description: "Question Type"
+        enum:
+        - "Single Answer"
+        - "Multiple Choice"
+        - "User Input"
       questionBody:
-        $ref: "#/definitions/questionBody"
+        type: "string"
+        example: "What comes of nothing?"
       answers:
-        $ref: "#/definitions/answerWithCorrect"
+        type: "array"
+        example: ""
       explanationText:
-        $ref: "#/definitions/explanationText"
+        type: "string"
+        example: "nothing comes of nothing"
       tags:
         type: "array"
         example: ""
@@ -1281,16 +1299,6 @@ definitions:
       questionId:
         type: "integer"
         example: 1
-  questionBody:
-    type: "string"
-    example: "What comes of nothing?"
-  questionType:
-    type: "string"
-    description: "Question Type"
-    enum:
-    - "Single Answer"
-    - "Multiple Choice"
-    - "User Input"
   User:
     type: "object"
     properties:
@@ -1317,6 +1325,15 @@ definitions:
       userid:
         type: "string"
         description: "authentication provider user id"
+  userStatus:
+    type: "object"
+    properties:
+      tokens:
+        type: "integer"
+        example: 42
+      level:
+        type: "string"
+        example: "Blue Belt"
   sessionRun:
     type: "object"
     properties:
@@ -1324,9 +1341,14 @@ definitions:
         type: "integer"
         format: "int64"
       questionType:
-        $ref: "#/definitions/questionType"
+        type: "string"
+        description: "Question Type"
+        enum:
+        - "Single Answer"
+        - "Multiple Choice"
+        - "User Input"
       questionBody:
-        $ref: "#/definitions/questionBody"
+        type: "string"
       answers:
         $ref: "#/definitions/Answers"
       cards_taken:
@@ -1419,7 +1441,7 @@ definitions:
     type: "object"
     properties:
       card:
-        $ref: "#/definitions/viewCard_card"
+        $ref: "#/definitions/editCard"
       stats:
         $ref: "#/definitions/cardStatistics"
       comments:
@@ -1497,14 +1519,6 @@ definitions:
       answerText:
         type: "string"
         example: "my final answer"
-  answerWithCorrect_inner:
-    properties:
-      answerText:
-        type: "string"
-        example: "is this the correct answer?"
-      isCorrect:
-        type: "integer"
-        example: 1
   cardsSubmitted_cards:
     properties:
       question_id:
@@ -1534,9 +1548,15 @@ definitions:
   getCard_cardDefinition:
     properties:
       questionType:
-        $ref: "#/definitions/questionType"
+        type: "string"
+        description: "Question Type"
+        enum:
+        - "Single Answer"
+        - "Multiple Choice"
+        - "User Input"
       questionBody:
-        $ref: "#/definitions/questionBody"
+        type: "string"
+        example: "What comes of nothing?"
       answers:
         type: "array"
         example: ""
@@ -1551,18 +1571,6 @@ definitions:
       cardCount:
         type: "integer"
         example: 42
-  viewCard_card:
-    properties:
-      questionType:
-        $ref: "#/definitions/questionType"
-      questionBody:
-        $ref: "#/definitions/questionBody"
-      answers:
-        $ref: "#/definitions/answerWithCorrect"
-      explanationText:
-        $ref: "#/definitions/explanationText"
-      tags:
-        $ref: "#/definitions/tagArray"
 responses:
   Forbidden:
     description: "User does not have the in-app privilege to perform this action"
