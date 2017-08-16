@@ -1261,7 +1261,7 @@ definitions:
         $ref: "#/definitions/answerWithCorrect"
       explanationText:
         $ref: "#/definitions/explanationText"
-      tags:
+      tags_list:
         type: "array"
         description: "comma separated list of ID tags"
         items:
