@@ -355,11 +355,6 @@ paths:
         type: "array"
         items:
           type: "integer"
-          format: "int64"
-          enum:
-          - 1
-          - 2
-          - 3
         collectionFormat: "multi"
       - name: "tags_all"
         in: "query"
