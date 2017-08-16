@@ -1267,7 +1267,7 @@ definitions:
         items:
           type: "integer"
           format: "int64"
-          example: ""
+          example: "1,2,3"
   editCard:
     type: "object"
     required:
