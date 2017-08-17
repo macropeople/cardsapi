@@ -1271,7 +1271,6 @@ definitions:
     required:
     - "answers"
     - "description"
-    - "explanation"
     - "question_type"
     - "tag_list"
     properties:
@@ -1281,7 +1280,7 @@ definitions:
         $ref: "#/definitions/questionBody"
       answers:
         $ref: "#/definitions/answerWithCorrect"
-      explanation:
+      explanation_markdown:
         $ref: "#/definitions/explanationText"
       tag_list:
         type: "array"
