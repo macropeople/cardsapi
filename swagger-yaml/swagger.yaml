@@ -496,8 +496,6 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/cardsTaken"
-        400:
-          description: "Invalid tag value"
         403:
           description: "User does not have the in-app privilege to perform this action"
   /cards/{questionId}/comments:
