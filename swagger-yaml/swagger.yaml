@@ -1066,18 +1066,18 @@ definitions:
     items:
       $ref: "#/definitions/answerWithCorrect_inner"
     example:
-    - answerText: "is this the correct answer?"
-      isCorrect: 1
-    - answerText: "or this one?"
-      isCorrect: 0
-    - answerText: "what about this?"
-      isCorrect: 0
+    - answer_markdown: "is this the correct answer?"
+      is_correct: 1
+    - answer_markdown: "or this one?"
+      is_correct: 0
+    - answer_markdown: "what about this?"
+      is_correct: 0
   answerWithCorrect_inner:
     properties:
-      answerText:
+      answer_markdown:
         type: "string"
         example: "is this the correct answer?"
-      isCorrect:
+      is_correct:
         type: "integer"
         example: 1
   cardResponse:
@@ -1241,7 +1241,8 @@ definitions:
         type: "string"
         example: "dropdown list, eg restore account etc"
   explanationText:
-    $ref: "#/definitions/explanationText"
+    type: "string"
+    example: "this is why x was x and not y"
   newCard:
     type: "object"
     required:
@@ -1269,19 +1270,20 @@ definitions:
     type: "object"
     required:
     - "answers"
-    - "explanationText"
-    - "questionBody"
-    - "questionType"
+    - "description"
+    - "explanation"
+    - "question_type"
+    - "tag_list"
     properties:
-      questionType:
+      question_type:
         $ref: "#/definitions/questionType"
-      questionBody:
+      description:
         $ref: "#/definitions/questionBody"
       answers:
         $ref: "#/definitions/answerWithCorrect"
-      explanationText:
+      explanation:
         $ref: "#/definitions/explanationText"
-      tags:
+      tag_list:
         type: "array"
         example: ""
   getCard:
