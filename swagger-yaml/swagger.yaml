@@ -1270,13 +1270,14 @@ definitions:
     type: "object"
     required:
     - "answers"
-    - "description"
+    - "description_markdown"
+    - "explanation_markdown"
     - "question_type"
     - "tag_list"
     properties:
       question_type:
         $ref: "#/definitions/questionType"
-      description:
+      description_markdown:
         $ref: "#/definitions/questionBody"
       answers:
         $ref: "#/definitions/answerWithCorrect"
