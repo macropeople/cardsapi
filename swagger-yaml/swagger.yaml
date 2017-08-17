@@ -769,6 +769,7 @@ paths:
     get:
       tags:
       - "sessions"
+      - "backlog"
       summary: "Number of Sessions available"
       description: "Excludes sessions which the user has taken in the past. If input\
         \ is blank, returns list of tags and a full count of available sessions for\
@@ -799,6 +800,7 @@ paths:
     get:
       tags:
       - "sessions"
+      - "backlog"
       summary: "Find a random Session (can be filtered by Tag)"
       description: "The backend will return the first card from a random session.\
         \  A tag filter may be applied.  Sessions that the user has taken before are\
@@ -830,6 +832,7 @@ paths:
     get:
       tags:
       - "sessions"
+      - "backlog"
       summary: "submit answer and request next card"
       description: "session ID not necessary as this is identified server side.  question\
         \ ID should be submitted to verify that a previous answer is not being submitted\
@@ -923,6 +926,7 @@ paths:
     get:
       tags:
       - "user"
+      - "backlog"
       summary: "Get user by user id"
       description: ""
       operationId: "getUserByName"
