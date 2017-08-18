@@ -746,7 +746,7 @@ paths:
         405:
           description: "User has not answered this question"
   /contact:
-    put:
+    post:
       tags:
       - "admin"
       summary: "Contact Form"
