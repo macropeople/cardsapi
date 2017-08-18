@@ -1247,17 +1247,17 @@ definitions:
     type: "object"
     required:
     - "answers"
-    - "explanationText"
-    - "questionBody"
-    - "questionType"
+    - "description_markdown"
+    - "explanation_markdown"
+    - "question_type"
     properties:
-      questionType:
+      question_type:
         $ref: "#/definitions/questionType"
-      questionBody:
+      description_markdown:
         $ref: "#/definitions/questionBody"
       answers:
         $ref: "#/definitions/answerWithCorrect"
-      explanationText:
+      explanation_markdown:
         $ref: "#/definitions/explanationText"
       tag_list:
         type: "array"
