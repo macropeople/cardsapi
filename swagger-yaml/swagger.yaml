@@ -1527,11 +1527,11 @@ definitions:
         $ref: "#/definitions/Privacy"
   Answers_inner:
     properties:
-      answerId:
+      answer_id:
         type: "integer"
         format: "int64"
         example: 2
-      answerText:
+      answer_markdown:
         type: "string"
         example: "my final answer"
   cardsSubmitted_cards:
