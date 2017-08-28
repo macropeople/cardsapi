@@ -1124,7 +1124,7 @@ definitions:
   cardsSubmitted:
     type: "object"
     properties:
-      total_available:
+      total_submitted:
         type: "integer"
       cards:
         type: "array"
