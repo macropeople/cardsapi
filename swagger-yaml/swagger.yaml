@@ -1539,10 +1539,10 @@ definitions:
       question_id:
         type: "integer"
         example: 1
-      question_title:
+      question_description:
         type: "string"
         example: "Does x = y?"
-        description: "short display description"
+        description: "display description"
       votes:
         type: "integer"
         example: -4
@@ -1552,10 +1552,10 @@ definitions:
       question_id:
         type: "integer"
         example: 1
-      question_title:
+      question_description:
         type: "string"
         example: "Does x = y?"
-        description: "short display description"
+        description: "display description"
       result:
         type: "string"
         example: "pass"
