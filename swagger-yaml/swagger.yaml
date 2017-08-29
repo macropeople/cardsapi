@@ -389,7 +389,7 @@ paths:
             example: 324
         400:
           description: "Invalid tag value"
-  /cards/run:
+  /cards/next_card:
     get:
       tags:
       - "cards"
@@ -400,7 +400,7 @@ paths:
         \ the same question will be returned.  If the users previous card was answered\
         \ incorrectly, or it is the users first card for this tag combination, then\
         \ an easy card will be returned.  Otherwise cards will be returned with progressive\
-        \ difficulty.  Only non-deleted cards, and cards with more than -2 votes will\
+        \ difficulty.  Only non-deleted cards, and cards with more than 0 votes will\
         \ be returned.   For user input style, the Answers array will be empty."
       operationId: "cardGet"
       produces:
@@ -1028,20 +1028,14 @@ definitions:
       streak:
         type: "integer"
         description: "number of consecutive cards answered correctly on current streak"
-      user_tokens:
-        type: "integer"
-        description: "current user balance"
-      questionId:
-        type: "integer"
-        format: "int64"
-      questionType:
-        $ref: "#/definitions/questionType"
-      questionTitle:
-        type: "string"
-      questionBody:
-        $ref: "#/definitions/questionBody"
+      question:
+        $ref: "#/definitions/Question"
       answers:
         $ref: "#/definitions/Answers"
+      started_at:
+        type: "string"
+        format: "date-time"
+        description: "The timestamp at which the question was sent"
   Answers:
     type: "array"
     items:
@@ -1086,41 +1080,36 @@ definitions:
       result:
         type: "boolean"
         description: "1 = pass, 0=fail"
-      answerIds:
+      answer_ids:
         type: "array"
         example: ""
         description: "the id of the correct answer (multiple for multiple choice)"
-      answerText:
+      answer_markdown:
         type: "string"
         example: "XYZ"
         description: "the correct answer text (needed for user input)"
-      explanationText:
+      explanation_markdown:
         $ref: "#/definitions/explanationText"
-      voteResultPrevious:
-        type: "integer"
-        example: 2
-        description: "The users previous vote - 0=unvoted, 1=down, 2=up"
-      voteLock:
+      vote_direction:
+        type: "string"
+        example: "up"
+        description: "The previous vote - up/down/NA"
+      vote_lock:
         type: "integer"
         example: 0
         description: "If it is the users own question, or they have previously viewed\
           \ the statistics, the vote is locked (else the vote may be skewed by who\
           \ wrote the question)"
-      tokensEarned:
+      tokens_earned:
         type: "integer"
         format: "int64"
         example: -2
         description: "The number of tokens earned (if any).  For the first card, 2\
           \ tokens are deducted. For card 5 and beyond, 1 token is earned."
-      started_at:
+      message:
         type: "string"
-        format: "date-time"
-        description: "The timestamp at which the question was sent"
-      user_tokens:
-        type: "integer"
-        format: "int64"
-        example: 544
-        description: "Current user token balance"
+        description: "system message, eg if the user has spent too long before answering\
+          \ the question"
   cardsSubmitted:
     type: "object"
     properties:
@@ -1405,6 +1394,16 @@ definitions:
         type: "string"
         format: "date-time"
     description: "Privacy Policy or T&C object"
+  Question:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      question_type:
+        $ref: "#/definitions/questionType"
+      question_markdown:
+        $ref: "#/definitions/questionBody"
   User:
     type: "object"
     properties:
@@ -1527,7 +1526,7 @@ definitions:
         $ref: "#/definitions/Privacy"
   Answers_inner:
     properties:
-      answer_id:
+      id:
         type: "integer"
         format: "int64"
         example: 2
