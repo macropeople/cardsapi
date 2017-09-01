@@ -763,6 +763,87 @@ paths:
       responses:
         200:
           description: "successful operation"
+  /review/count:
+    get:
+      tags:
+      - "review"
+      summary: "Number of Cards available"
+      description: "Excludes cards which the user has answered correctly in the past.\
+        \ If input is blank, returns list of tags and a count of available cards for\
+        \ each.  If tag list supplied, shows how many cards are available that have\
+        \ ALL or ANY of the supplied tags"
+      operationId: "countReview"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tags_any"
+        in: "query"
+        required: false
+        type: "array"
+        items:
+          type: "integer"
+        collectionFormat: "multi"
+      - name: "tags_all"
+        in: "query"
+        required: false
+        type: "array"
+        items:
+          type: "integer"
+          format: "int64"
+          enum:
+          - 4
+          - 5
+          - 6
+        collectionFormat: "multi"
+      - name: "tags_not"
+        in: "query"
+        required: false
+        type: "array"
+        items:
+          type: "integer"
+          format: "int64"
+          enum:
+          - 4
+          - 5
+          - 6
+        collectionFormat: "multi"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "integer"
+            format: "int64"
+            example: 324
+        400:
+          description: "Invalid tag value"
+  /review/next:
+    get:
+      tags:
+      - "review"
+      summary: "Review random Card (filter by Tag)"
+      description: "The backend will return a random card.  If this request is submitted\
+        \ by the same user from 2 browsers within 2 minutes, the same question will\
+        \ be returned.  Only non-deleted / non-submitted cards, and cards with less\
+        \ than 2  (and more than -4) votes will be returned.   For user input style,\
+        \ the Answers array will be empty."
+      operationId: "reviewNext"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "countCards"
+        description: "Input is optional - left blank will return a random (non-deleted)\
+          \ question from the entire question bank."
+        required: false
+        schema:
+          $ref: "#/definitions/tagFilter"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/cardRun"
+        400:
+          description: "Invalid tag value"
   /review/{questionId}/verify:
     put:
       tags:
