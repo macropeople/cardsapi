@@ -763,6 +763,44 @@ paths:
       responses:
         200:
           description: "successful operation"
+  /review/{questionId}/verify:
+    put:
+      tags:
+      - "review"
+      summary: "Get result and explanation"
+      description: "Returns the result (pass / fail), the correct answer and the explanation.\
+        \   If the user had started another Review Card in another browser in the\
+        \ last 2 minutes, that card is shown. If the user had 'timed out' from a previous\
+        \ question, then that Card is marked incorrect."
+      operationId: "reviewVerify"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "questionId"
+        in: "path"
+        description: "ID of question to verify"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "For Single Answer and Multiple Choice, provide one / one or\
+          \ more answer IDs.  For User Input, provide answerText.  This will be compared\
+          \ (case insensitively) with the allowed answers."
+        required: true
+        schema:
+          $ref: "#/definitions/answerChosen"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/reviewResponse"
+        400:
+          description: "Invalid ID supplied"
+        403:
+          description: "User does not have the in-app privilege to perform this action"
+        404:
+          description: "Question not found"
   /sessions/count:
     get:
       tags:
@@ -1404,6 +1442,26 @@ definitions:
         $ref: "#/definitions/questionType"
       question_markdown:
         $ref: "#/definitions/questionBody"
+  reviewResponse:
+    type: "object"
+    properties:
+      result:
+        type: "boolean"
+        description: "1 = pass, 0=fail"
+      answer_ids:
+        type: "array"
+        example: ""
+        description: "the id of the correct answer (multiple for multiple choice)"
+      answer_markdown:
+        type: "string"
+        example: "XYZ"
+        description: "the correct answer text (needed for user input)"
+      explanation_markdown:
+        $ref: "#/definitions/explanationText"
+      message:
+        type: "string"
+        description: "system message, eg if the user has spent too long before answering\
+          \ the question"
   User:
     type: "object"
     properties:
