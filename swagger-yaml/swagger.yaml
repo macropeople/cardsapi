@@ -1611,6 +1611,8 @@ definitions:
   userDetailsUpdate:
     type: "object"
     properties:
+      username:
+        type: "string"
       location:
         type: "string"
       email:
