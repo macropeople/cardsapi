@@ -1094,6 +1094,33 @@ paths:
           description: "User does not have the in-app privilege to perform this action"
         404:
           description: "User not found"
+    put:
+      tags:
+      - "user"
+      summary: "update user details"
+      description: "Update user details.  Should only be possible for the specific\
+        \ user, or an admin."
+      operationId: "userDetailsUpdate"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "userDetailsUpdate"
+        required: false
+        schema:
+          $ref: "#/definitions/userDetailsUpdate"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+            example: "Successfully updated User."
+        401:
+          description: "could not verify authentication details"
     delete:
       tags:
       - "user"
@@ -1580,6 +1607,15 @@ definitions:
       points:
         type: "integer"
       authentication_token:
+        type: "string"
+  userDetailsUpdate:
+    type: "object"
+    properties:
+      location:
+        type: "string"
+      email:
+        type: "string"
+      biography_markdown:
         type: "string"
   userLogin:
     type: "object"
