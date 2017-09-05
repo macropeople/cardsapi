@@ -844,6 +844,30 @@ paths:
             $ref: "#/definitions/cardRun"
         400:
           description: "Invalid tag value"
+  /review/tags:
+    get:
+      tags:
+      - "tags"
+      - "review"
+      summary: "Retrieve count of available questions by tag"
+      description: "Shows total cards available (for the user) by tag.  Empty tag\
+        \ values (0 cards) are not returned."
+      operationId: "getReviewTagCount"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "getTagCount"
+        description: "leave blank to return all cards.  Add filter to adjust responses\
+          \ accordingly."
+        required: false
+        schema:
+          $ref: "#/definitions/tagFilter"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/tagCount"
   /review/{questionId}/verify:
     put:
       tags:
