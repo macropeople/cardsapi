@@ -255,6 +255,8 @@ paths:
         schema:
           $ref: "#/definitions/newCard"
       responses:
+        200:
+          description: "successful operation"
         403:
           description: "User does not have the in-app privilege to perform this action"
         405:
@@ -311,6 +313,8 @@ paths:
         schema:
           $ref: "#/definitions/editCard"
       responses:
+        200:
+          description: "successful operation"
         403:
           description: "User does not have the in-app privilege to perform this action"
         405:
