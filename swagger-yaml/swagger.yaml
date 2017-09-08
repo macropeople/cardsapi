@@ -1410,13 +1410,13 @@ definitions:
     type: "object"
     required:
     - "answers"
-    - "description_markdown"
     - "explanation_markdown"
+    - "question_markdown"
     - "question_type"
     properties:
       question_type:
         $ref: "#/definitions/questionType"
-      description_markdown:
+      question_markdown:
         $ref: "#/definitions/questionBody"
       answers:
         $ref: "#/definitions/answerWithCorrect"
@@ -1433,14 +1433,14 @@ definitions:
     type: "object"
     required:
     - "answers"
-    - "description_markdown"
     - "explanation_markdown"
+    - "question_markdown"
     - "question_type"
     - "tag_list"
     properties:
       question_type:
         $ref: "#/definitions/questionType"
-      description_markdown:
+      question_markdown:
         $ref: "#/definitions/questionBody"
       answers:
         $ref: "#/definitions/answerWithCorrect"
