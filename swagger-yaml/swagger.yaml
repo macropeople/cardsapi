@@ -204,6 +204,27 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/tagCount"
+  /tags/count_submitted:
+    get:
+      tags:
+      - "tags"
+      summary: "Count of submitted questions by tag"
+      operationId: "getTagCountSubmitted"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "getTagCount"
+        description: "leave blank to return all cards.  Add filter to adjust responses\
+          \ accordingly."
+        required: false
+        schema:
+          $ref: "#/definitions/tagFilter"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/tagCount"
   /tags/{tagId}:
     patch:
       tags:
