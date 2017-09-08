@@ -279,7 +279,7 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/getCard"
+            $ref: "#/definitions/editCardResponse"
         403:
           description: "User does not have the in-app privilege to perform this action"
         405:
@@ -338,6 +338,8 @@ paths:
       responses:
         200:
           description: "successful operation"
+          schema:
+            $ref: "#/definitions/editCardResponse"
         403:
           description: "User does not have the in-app privilege to perform this action"
         405:
@@ -447,6 +449,9 @@ paths:
             $ref: "#/definitions/cardRun"
         400:
           description: "Invalid tag value"
+        405:
+          description: "There are no more questions available for your combination\
+            \ of tags"
   /cards/submitted:
     get:
       tags:
@@ -1473,6 +1478,14 @@ definitions:
       tag_list:
         type: "array"
         example: ""
+  editCardResponse:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+        example: "Successfully created Card."
+      card:
+        $ref: "#/definitions/editCard"
   getCard:
     type: "object"
     properties:
