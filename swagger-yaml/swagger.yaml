@@ -876,6 +876,9 @@ paths:
             $ref: "#/definitions/cardRun"
         400:
           description: "Invalid tag value"
+        405:
+          description: "There are no more questions available for your combination\
+            \ of tags"
   /review/tags:
     get:
       tags:
