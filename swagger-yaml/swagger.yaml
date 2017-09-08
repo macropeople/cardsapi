@@ -1022,37 +1022,6 @@ paths:
           description: "Invalid tag value"
         403:
           description: "User does not have the in-app privilege to perform this action"
-  /user/signup:
-    get:
-      tags:
-      - "user"
-      summary: "verifies an authentication request and issues key"
-      description: "Server will validate the authentication and issue a key.  However\
-        \ if no email exists for the user, or the terms haven't been signed, a 403\
-        \ response is given further info requested."
-      operationId: "userSignup"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "authorization"
-        in: "header"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "userSignup"
-        description: "Authentication validation is performed server-side against the\
-          \ authProvider"
-        required: false
-        schema:
-          $ref: "#/definitions/userLogin"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            type: "string"
-            example: "myMacroCardsAuthKey88234lksdvadkfj23452"
-        401:
-          description: "could not verify authentication details"
   /user/login:
     get:
       tags:
@@ -1088,6 +1057,82 @@ paths:
             type: "string"
             example: "email"
             description: "valid values include: email,terms"
+  /user/signup:
+    get:
+      tags:
+      - "user"
+      summary: "verifies an authentication request and issues key"
+      description: "Server will validate the authentication and issue a key.  However\
+        \ if no email exists for the user, or the terms haven't been signed, a 403\
+        \ response is given further info requested."
+      operationId: "userSignup"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "userSignup"
+        description: "Authentication validation is performed server-side against the\
+          \ authProvider"
+        required: false
+        schema:
+          $ref: "#/definitions/userLogin"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+            example: "myMacroCardsAuthKey88234lksdvadkfj23452"
+        401:
+          description: "could not verify authentication details"
+  /user/status:
+    get:
+      tags:
+      - "user"
+      summary: "returns token count and user level"
+      description: "only returns data for current logged in user"
+      operationId: "userStatus"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/userStatus"
+        401:
+          description: "could not verify authentication details"
+  /user/update:
+    put:
+      tags:
+      - "user"
+      summary: "update user details"
+      description: "Update user details.  Should only be possible for the specific\
+        \ user, or an admin."
+      operationId: "userDetailsUpdate"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "userDetailsUpdate"
+        required: false
+        schema:
+          $ref: "#/definitions/userDetailsUpdate"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+            example: "Successfully updated User."
+        401:
+          description: "could not verify authentication details"
   /user/{userId}:
     get:
       tags:
@@ -1119,33 +1164,6 @@ paths:
           description: "User does not have the in-app privilege to perform this action"
         404:
           description: "User not found"
-    put:
-      tags:
-      - "user"
-      summary: "update user details"
-      description: "Update user details.  Should only be possible for the specific\
-        \ user, or an admin."
-      operationId: "userDetailsUpdate"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "authorization"
-        in: "header"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "userDetailsUpdate"
-        required: false
-        schema:
-          $ref: "#/definitions/userDetailsUpdate"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            type: "string"
-            example: "Successfully updated User."
-        401:
-          description: "could not verify authentication details"
     delete:
       tags:
       - "user"
@@ -1168,23 +1186,6 @@ paths:
           description: "User does not have the in-app privilege to perform this action"
         404:
           description: "User not found"
-  /user/status:
-    get:
-      tags:
-      - "user"
-      summary: "returns token count and user level"
-      description: "only returns data for current logged in user"
-      operationId: "userStatus"
-      produces:
-      - "application/json"
-      parameters: []
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/userStatus"
-        401:
-          description: "could not verify authentication details"
   /vote_reasons:
     get:
       tags:
