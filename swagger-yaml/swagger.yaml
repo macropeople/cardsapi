@@ -446,7 +446,7 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/cardRun"
+            $ref: "#/definitions/cardNext"
         400:
           description: "Invalid tag value"
         405:
@@ -873,7 +873,7 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/cardRun"
+            $ref: "#/definitions/cardNext"
         400:
           description: "Invalid tag value"
         405:
@@ -1228,20 +1228,6 @@ securityDefinitions:
     name: "X-User-Token"
     in: "header"
 definitions:
-  cardRun:
-    type: "object"
-    properties:
-      streak:
-        type: "integer"
-        description: "number of consecutive cards answered correctly on current streak"
-      question:
-        $ref: "#/definitions/Question"
-      answers:
-        $ref: "#/definitions/Answers"
-      started_at:
-        type: "string"
-        format: "date-time"
-        description: "The timestamp at which the question was sent"
   Answers:
     type: "array"
     items:
@@ -1316,6 +1302,27 @@ definitions:
         type: "string"
         description: "system message, eg if the user has spent too long before answering\
           \ the question"
+  cardNext:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+      card:
+        $ref: "#/definitions/cardRun"
+  cardRun:
+    type: "object"
+    properties:
+      streak:
+        type: "integer"
+        description: "number of consecutive cards answered correctly on current streak"
+      question:
+        $ref: "#/definitions/Question"
+      answers:
+        $ref: "#/definitions/Answers"
+      started_at:
+        type: "string"
+        format: "date-time"
+        description: "The timestamp at which the question was sent"
   cardsSubmitted:
     type: "object"
     properties:
